@@ -24,8 +24,8 @@
     </at>
     <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
    </super>
-   <at name="id">/home/osc/gvSIG/plugins/org.gvsig.scripting.app.mainplugin/2.5.0/scripts/addons/QuickDrawing/main.xml</at>
-   <at name="path">addons/QuickDrawing/main.xml</at>
+   <at name="id">/home/osc/gvSIG/plugins/org.gvsig.scripting.app.mainplugin/2.5.0/scripts/addons/QuickDrawing/quickDrawingTool.xml</at>
+   <at name="path">addons/QuickDrawing/quickDrawingTool.xml</at>
    <at name="rowspecs">CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE</at>
    <at name="colspecs">FILL:4DLU:NONE,FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE</at>
    <at name="components">
@@ -47,7 +47,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.804216966</at>
+        <at name="id">embedded.866253109</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:7PX:NONE,FILL:DEFAULT:NONE</at>
         <at name="components">
@@ -109,8 +109,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -176,8 +176,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -243,8 +243,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -310,8 +310,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -377,8 +377,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -444,8 +444,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -511,8 +511,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -578,8 +578,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -645,8 +645,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -712,8 +712,8 @@
                    <at name="height">16</at>
                   </object>
                  </at>
-                 <at name="name"></at>
                  <at name="width">20</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -894,7 +894,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.1238508192</at>
+        <at name="id">embedded.1857790767</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:PREF:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:GROW(1.0)</at>
         <at name="components">
@@ -943,7 +943,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="text">Outline color</at>
                  <at name="fill">
@@ -976,7 +976,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.1297618633</at>
+             <at name="id">embedded.1302296675</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -1025,8 +1025,8 @@
                         </at>
                        </object>
                       </at>
-                      <at name="width">510</at>
-                      <at name="name"/>
+                      <at name="name">txtOutline</at>
+                      <at name="width">573</at>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -1092,7 +1092,7 @@
                         <at name="height">16</at>
                        </object>
                       </at>
-                      <at name="name"></at>
+                      <at name="name">btnOutline</at>
                       <at name="width">20</at>
                       <at name="height">20</at>
                      </object>
@@ -1228,7 +1228,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="text">Fill color</at>
                  <at name="fill">
@@ -1261,7 +1261,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.270047954</at>
+             <at name="id">embedded.1961773449</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -1310,8 +1310,8 @@
                         </at>
                        </object>
                       </at>
-                      <at name="width">510</at>
-                      <at name="name"/>
+                      <at name="name">txtFill</at>
+                      <at name="width">573</at>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -1377,7 +1377,7 @@
                         <at name="height">16</at>
                        </object>
                       </at>
-                      <at name="name"></at>
+                      <at name="name">btnFill</at>
                       <at name="width">20</at>
                       <at name="height">20</at>
                      </object>
@@ -1513,7 +1513,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="text">Line width</at>
                  <at name="fill">
@@ -1574,7 +1574,7 @@
                   </object>
                  </at>
                  <at name="horizontalAlignment">4</at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="height">20</at>
                 </object>
@@ -1628,7 +1628,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="text">Rotation</at>
                  <at name="fill">
@@ -1689,7 +1689,7 @@
                   </object>
                  </at>
                  <at name="horizontalAlignment">4</at>
-                 <at name="width">546</at>
+                 <at name="width">609</at>
                  <at name="name"/>
                  <at name="height">20</at>
                 </object>
@@ -1917,7 +1917,7 @@
               </at>
              </object>
             </at>
-            <at name="width">551</at>
+            <at name="width">614</at>
             <at name="name"/>
             <at name="text">-</at>
             <at name="alignment">4</at>
@@ -1946,7 +1946,7 @@
          </at>
         </object>
        </at>
-       <at name="name"></at>
+       <at name="name"/>
        <at name="fill">
         <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
          <at name="name">fill</at>

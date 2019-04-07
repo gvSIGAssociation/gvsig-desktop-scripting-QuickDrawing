@@ -8,10 +8,11 @@ from org.gvsig.fmap.mapcontrol.tools.Listeners import PointListener
 #from org.gvsig.fmap.mapcontrol.tools.Listeners import AbstractPointListener
 from org.gvsig.fmap.mapcontext.layers.vectorial import SpatialEvaluatorsFactory
 from org.gvsig.fmap import IconThemeHelper
-from addons.ReportByPoint.reportbypointpanelreport import ReportByPointPanelReport
 from org.gvsig.fmap.mapcontrol.tools.Behavior import PointBehavior
 from org.gvsig.tools import ToolsLocator
-from addons.ReportByPoint.rbplib.getHTMLReportByPoint import getHTMLReportByPoint
+import random
+from gvsig.utils import *
+from org.gvsig.fmap.geom import Geometry
 
 class QuickDrawingPoint(object):
 
@@ -23,7 +24,7 @@ class QuickDrawingPoint(object):
     return ""
 
   def setTool(self, mapControl):
-    actives = mapControl.getMapContext().getLayers().getActives()
+
     #if len(actives)!=1:
     #  # Solo activamos la herramienta si hay una sola capa activa
     #  #print "### reportbypoint.setTool: active layers != 1 (%s)" % len(actives)
@@ -34,8 +35,7 @@ class QuickDrawingPoint(object):
     #  # tampoco activamos la herramienta
     #  #print '### reportbypoint.setTool: active layer %s not has property "reportbypoint.fieldname"' % actives[0].getName()
     #  return 
-    #self.__layer = actives[0]
-        
+
     #if it has the tool
     #if not mapControl.hasTool("quickdrawingpoint"):
       #print '### QuickInfo.setTool: Add to MapControl 0x%x the "quickinfo" tool' % mapControl.hashCode()
@@ -57,15 +57,24 @@ class QuickDrawingPoint(object):
 
 class QuickDrawingPointListener(PointListener):
 
-  def __init__(self, mapControl, reportbypoint):
+  def __init__(self, mapControl, quickdrawingpoint):
     PointListener.__init__(self)
     self.mapControl = mapControl
-    self.reportbypoint = reportbypoint
+    self.mapContext = self.mapControl.getMapContext()
+    self.graphicsLayer = self.mapContext.getGraphicsLayer()
+    self.quickdrawingpoint = quickdrawingpoint
     self.projection = self.mapControl.getProjection()
 
   def point(self, event):
     p = event.getMapPoint()
-    print "drawing point:", p
+    print "drawing point:", p, type(p)
+    self.graphicsLayer.removeGraphics("ejemplo")
+    r = lambda: random.randint(0, 255)
+    color = getColorFromRGB(r(), r(), r() ,r())
+    point = MapContextLocator.getSymbolManager().createSymbol(Geometry.TYPES.POINT, color)
+    idPolSymbol = self.graphicsLayer.addSymbol(point)
+    self.graphicsLayer.addGraphic("ejemplo", p,  idPolSymbol, "Label")
+    self.mapContext.invalidate()
     
   def pointDoubleClick(self, event):
     pass
@@ -77,8 +86,7 @@ class QuickDrawingPointListener(PointListener):
   def cancelDrawing(self):
     """Evento de PointListener"""
     print "cancel"
-    
-    return False
+    return True
 
 def main(*args):      
   viewDoc = gvsig.currentView()

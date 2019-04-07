@@ -5,16 +5,29 @@ import gvsig
 from gvsig import getResource
 from gvsig.libs.formpanel import FormPanel
 from addons.QuickDrawing.qdlib.qdpoint import QuickDrawingPoint
+from org.gvsig.tools.swing.api import ToolsSwingLocator
+
 
 class QuickDrawingTool(FormPanel):
   def __init__(self):
     FormPanel.__init__(self,getResource(__file__,"quickDrawingTool.xml"))
+    self.initUI()
+  def initUI(self):
+    tsl = ToolsSwingLocator.getToolsSwingManager()
+    print self.txtOutline, self.btnOutline
+    print self.txtFill, self.btnFill
+    return
+    pickerColorOutline = tsl.createColorPickerController(self.txtOutline, self.btnOutline)
+    pickerColorFill = tsl.createColorPickerController(self.txtFill, self.btnFill)
     
-  def btnDrawPoint_click(*args):
+  def btnDrawPoint_click(self, *args):
     print "print"
     viewDoc = gvsig.currentView()
     viewPanel = viewDoc.getWindowOfView()
     mapControl = viewPanel.getMapControl()
+    print "t1:", type(viewDoc)
+    print "t2:", type(viewPanel)
+    print "t3:", type(mapControl)
     
     quickdrawingpoint = QuickDrawingPoint()
     quickdrawingpoint.setTool(mapControl)

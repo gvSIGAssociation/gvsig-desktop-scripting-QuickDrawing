@@ -14,11 +14,10 @@ class QuickDrawingTool(FormPanel):
     self.initUI()
   def initUI(self):
     tsl = ToolsSwingLocator.getToolsSwingManager()
-    print self.txtOutline, self.btnOutline
-    print self.txtFill, self.btnFill
-    return
-    pickerColorOutline = tsl.createColorPickerController(self.txtOutline, self.btnOutline)
-    pickerColorFill = tsl.createColorPickerController(self.txtFill, self.btnFill)
+    self.jslOutline.setPaintLabels(False)
+    self.jslFill.setPaintLabels(False)
+    pickerColorOutline = tsl.createColorPickerController(self.txtOutline, self.btnOutline, self.jslOutline)
+    pickerColorFill = tsl.createColorPickerController(self.txtFill, self.btnFill, self.jslFill)
     
   def btnDrawPoint_click(self, *args):
     print "print"

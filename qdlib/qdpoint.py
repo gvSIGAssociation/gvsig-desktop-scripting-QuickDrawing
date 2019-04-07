@@ -13,6 +13,7 @@ from org.gvsig.tools import ToolsLocator
 import random
 from gvsig.utils import *
 from org.gvsig.fmap.geom import Geometry
+from org.gvsig.fmap.mapcontext import MapContextLocator
 
 class QuickDrawingPoint(object):
 
@@ -61,14 +62,22 @@ class QuickDrawingPointListener(PointListener):
     PointListener.__init__(self)
     self.mapControl = mapControl
     self.mapContext = self.mapControl.getMapContext()
-    self.graphicsLayer = self.mapContext.getGraphicsLayer()
+    self.graphicsLayer = self.mapContext.getGraphicsLayer() #"quickdrawing")
+    #if self.graphicsLayer==None:
+    #  tracLayer = MapContextLocator.getMapContextManager().createGraphicsLayer(None)
+    #  self.mapContext.setGraphicsLayer("quickdrawing", tracLayer)
     self.quickdrawingpoint = quickdrawingpoint
     self.projection = self.mapControl.getProjection()
 
   def point(self, event):
     p = event.getMapPoint()
     print "drawing point:", p, type(p)
+    if self.graphicsLayer==None:
+      print "null graphics"
+      return
+    print "continue"
     self.graphicsLayer.removeGraphics("ejemplo")
+    print "removed"
     r = lambda: random.randint(0, 255)
     color = getColorFromRGB(r(), r(), r() ,r())
     point = MapContextLocator.getSymbolManager().createSymbol(Geometry.TYPES.POINT, color)
@@ -86,7 +95,7 @@ class QuickDrawingPointListener(PointListener):
   def cancelDrawing(self):
     """Evento de PointListener"""
     print "cancel"
-    return True
+    return False
 
 def main(*args):      
   viewDoc = gvsig.currentView()

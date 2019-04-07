@@ -11,4 +11,4 @@ class ToolQuickDrawing(FormPanel):
 
 def main(*args):
   p = ToolQuickDrawing()
-  p.showTool("QuikcDrawing")
+  p.showTool("QuickDrawing")

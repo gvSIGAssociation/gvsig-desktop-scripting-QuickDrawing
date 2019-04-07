@@ -24,8 +24,8 @@
     </at>
     <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
    </super>
-   <at name="id">/home/jjdelcerro/gvSIG/plugins/org.gvsig.scripting.app.mainplugin/2.5.0/scripts/addons/MaquetaDibujoRapido/main.xml</at>
-   <at name="path">addons/MaquetaDibujoRapido/main.xml</at>
+   <at name="id">/home/osc/gvSIG/plugins/org.gvsig.scripting.app.mainplugin/2.5.0/scripts/addons/QuickDrawing/main.xml</at>
+   <at name="path">addons/QuickDrawing/main.xml</at>
    <at name="rowspecs">CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE</at>
    <at name="colspecs">FILL:4DLU:NONE,FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE</at>
    <at name="components">
@@ -47,7 +47,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.1479796275</at>
+        <at name="id">embedded.804216966</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
         <at name="components">
@@ -103,7 +103,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-circumference.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-circumference.png</at>
                    <at name="description">insert-circumference.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -170,7 +170,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/selection-select-by-rectangle.png</at>
+                   <at name="path">addons/QuickDrawing/images/selection-select-by-rectangle.png</at>
                    <at name="description">selection-select-by-rectangle.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -237,7 +237,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-polyline.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-polyline.png</at>
                    <at name="description">insert-polyline.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -304,7 +304,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-polyline-closed.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-polyline-closed.png</at>
                    <at name="description">insert-polyline-closed.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -371,7 +371,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-freehand-draw.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-freehand-draw.png</at>
                    <at name="description">insert-freehand-draw.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -438,7 +438,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/remove.png</at>
+                   <at name="path">addons/QuickDrawing/images/remove.png</at>
                    <at name="description">remove.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -505,7 +505,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-ellipse.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-ellipse.png</at>
                    <at name="description">insert-ellipse.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -572,7 +572,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-text.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-text.png</at>
                    <at name="description">insert-text.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -624,7 +624,6 @@
                        <object classname="com.jeta.forms.store.properties.EmptyBorderProperty">
                         <super classname="com.jeta.forms.store.properties.BorderProperty">
                          <at name="name">border</at>
-                         <at name="title"></at>
                         </super>
                         <at name="top">2</at>
                         <at name="left">2</at>
@@ -640,7 +639,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/insert-rectangle.png</at>
+                   <at name="path">addons/QuickDrawing/images/insert-rectangle.png</at>
                    <at name="description">insert-rectangle.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -692,7 +691,6 @@
                        <object classname="com.jeta.forms.store.properties.EmptyBorderProperty">
                         <super classname="com.jeta.forms.store.properties.BorderProperty">
                          <at name="name">border</at>
-                         <at name="title"></at>
                         </super>
                         <at name="top">2</at>
                         <at name="left">2</at>
@@ -708,7 +706,7 @@
                  <at name="icon">
                   <object classname="com.jeta.forms.store.properties.IconProperty">
                    <at name="embedded">false</at>
-                   <at name="path">addons/MaquetaDibujoRapido/images/selection-simple-select.png</at>
+                   <at name="path">addons/QuickDrawing/images/selection-simple-select.png</at>
                    <at name="description">selection-simple-select.png</at>
                    <at name="width">16</at>
                    <at name="height">16</at>
@@ -741,7 +739,7 @@
               </at>
              </object>
             </at>
-            <at name="name"></at>
+            <at name="name"/>
             <at name="fill">
              <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
               <at name="name">fill</at>
@@ -829,7 +827,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.35422690</at>
+        <at name="id">embedded.1238508192</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:PREF:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:GROW(1.0)</at>
         <at name="components">
@@ -878,7 +876,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
                  <at name="name"/>
                  <at name="text">Outline color</at>
                  <at name="fill">
@@ -911,7 +909,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.1270233022</at>
+             <at name="id">embedded.1297618633</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -960,8 +958,8 @@
                         </at>
                        </object>
                       </at>
-                      <at name="name"></at>
-                      <at name="width">672</at>
+                      <at name="width">510</at>
+                      <at name="name"/>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -1021,7 +1019,7 @@
                       <at name="icon">
                        <object classname="com.jeta.forms.store.properties.IconProperty">
                         <at name="embedded">false</at>
-                        <at name="path">addons/MaquetaDibujoRapido/images/picker-color.png</at>
+                        <at name="path">addons/QuickDrawing/images/picker-color.png</at>
                         <at name="description">picker-color.png</at>
                         <at name="width">16</at>
                         <at name="height">16</at>
@@ -1163,7 +1161,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
                  <at name="name"/>
                  <at name="text">Fill color</at>
                  <at name="fill">
@@ -1196,7 +1194,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.971142375</at>
+             <at name="id">embedded.270047954</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -1245,8 +1243,8 @@
                         </at>
                        </object>
                       </at>
-                      <at name="name"></at>
-                      <at name="width">672</at>
+                      <at name="width">510</at>
+                      <at name="name"/>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -1306,7 +1304,7 @@
                       <at name="icon">
                        <object classname="com.jeta.forms.store.properties.IconProperty">
                         <at name="embedded">false</at>
-                        <at name="path">addons/MaquetaDibujoRapido/images/picker-color.png</at>
+                        <at name="path">addons/QuickDrawing/images/picker-color.png</at>
                         <at name="description">picker-color.png</at>
                         <at name="width">16</at>
                         <at name="height">16</at>
@@ -1448,7 +1446,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
                  <at name="name"/>
                  <at name="text">Line width</at>
                  <at name="fill">
@@ -1509,8 +1507,8 @@
                   </object>
                  </at>
                  <at name="horizontalAlignment">4</at>
-                 <at name="name"></at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1563,7 +1561,7 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
                  <at name="name"/>
                  <at name="text">Rotation</at>
                  <at name="fill">
@@ -1624,8 +1622,8 @@
                   </object>
                  </at>
                  <at name="horizontalAlignment">4</at>
-                 <at name="name"></at>
-                 <at name="width">708</at>
+                 <at name="width">546</at>
+                 <at name="name"/>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1679,8 +1677,8 @@
                   </object>
                  </at>
                  <at name="actionCommand">Apply</at>
-                 <at name="name"></at>
                  <at name="width">62</at>
+                 <at name="name"/>
                  <at name="text">Apply</at>
                  <at name="height">22</at>
                 </object>
@@ -1852,8 +1850,8 @@
               </at>
              </object>
             </at>
-            <at name="name"></at>
-            <at name="width">713</at>
+            <at name="width">551</at>
+            <at name="name"/>
             <at name="text">-</at>
             <at name="alignment">4</at>
             <at name="height">15</at>

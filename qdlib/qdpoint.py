@@ -45,7 +45,7 @@ class QuickDrawingPoint(object):
       # QuickInfoListener.
       #self.__behavior = MouseMovementBehavior(ReportByPointListener(mapControl, self))
     self.__behavior = PointBehavior(QuickDrawingPointListener(mapControl, self))
-    #self.__behavior.setMapControl(mapControl)    
+    #self.__behavior.setMapControl(mapControl)
     #
     # Le añadimos al MapControl la nueva "tool".
     mapControl.addBehavior("quickdrawingpoint", self.__behavior)
@@ -94,8 +94,7 @@ class QuickDrawingPointListener(PointListener):
 
   def cancelDrawing(self):
     """Evento de PointListener"""
-    print "cancel"
-    return False
+    return True
 
 def main(*args):      
   viewDoc = gvsig.currentView()

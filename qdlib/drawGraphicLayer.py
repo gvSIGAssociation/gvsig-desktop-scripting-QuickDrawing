@@ -14,16 +14,17 @@ from org.gvsig.fmap.mapcontext.layers.vectorial import FLyrVect
 
 def createMemoryStore():
   dataManager = DALLocator.getDataManager()
+  store_parameters = dataManager.createStoreParameters("Memory")
   store = dataManager.openStore("Memory")
   ft = store.getDefaultFeatureType()
   eft = ft.getEditable()
-  eft.append("ID", 'INTEGER', 9)
+  eft.append("ID", 'STRING', 38)
   eft.get("ID").setIsPrimaryKey(True)
-  
-  eft.append("CLRLINE", "STRING", 30)
-  eft.append("CLRFILL", "STRING", 30)
+  eft.append("GEOMLINE", "INTEGER", 9)
+  eft.append("GEOMFILL", "INTEGER", 9)
+  eft.append("GEOMWIDTH", "INTEGER", 9)
   eft.append("LBLTXT", 'STRING', 150)
-  eft.append("LBLCOLOR", 'STRING', 30)
+  eft.append("LBLCOLOR", 'INTEGER', 9)
   eft.append("LBLFONT", 'STRING', 150)
   eft.append("LBLSIZE", 'INTEGER', 5)
   eft.append("GEOMETRY", "GEOMETRY")
@@ -32,23 +33,6 @@ def createMemoryStore():
   store.update(eft)
   store.finishEditing()  
   return store
-  
-class DrawGraphicLayer(FLyrVect): #VectorLayer):
-  def __init__(self):
-    self.store = None
-   
-    
-  def setBaseQuery(self, baseQuery):
-    pass
-    
-  def getBaseQuery(self): # FeatureQuery
-    return 
-    
-  def addBaseFilter(self, filter): # params: Evaluator or String
-    pass
-    
-  def createFeatureQuery(self): # FeatureQuery
-    pass
     
 def main(*args):
   print "Testing graphic memory store"
@@ -83,3 +67,20 @@ def main(*args):
   layer = mapContextManager.createLayer('MyLayer',store)
   print layer,type(layer)
   gvsig.currentView().addLayer(layer)  
+
+  features = store.getFeatures()
+  selection = store.getFeatureSelection()
+  for f in features:
+    selection.select(f)
+    
+  store.edit()
+  features = store.getFeatureSelection()
+  values = {"GEOMLINE": 1}
+  
+  for f in features:
+    fe = f.getEditable()
+    print "F: ", f
+    for key,value in values.iteritems():
+      fe.set(key, value)
+    store.update(fe)
+  store.commit()

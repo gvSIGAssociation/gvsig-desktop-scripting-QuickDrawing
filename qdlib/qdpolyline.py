@@ -15,17 +15,12 @@ from org.gvsig.fmap.mapcontext import MapContextLocator
 import random
 from org.gvsig.fmap.dal.feature import FeatureStore
 
-class QuickDrawingPolyline(object):
+from qdbasic import QuickDrawingBasic
+
+class QuickDrawingPolyline(QuickDrawingBasic):
 
   def __init__(self):
-    self.behavior = None
-    self.store = None
-    
-  def setStore(self, store):
-    self.store = store
-    
-  def getStore(self):
-    return self.store
+    QuickDrawingBasic.__init__(self)
     
   def getTooltipValue(self, point, projection):
     return ""
@@ -35,13 +30,6 @@ class QuickDrawingPolyline(object):
     mapControl.addBehavior("quickdrawingpolyline", self.behavior)
     mapControl.setTool("quickdrawingpolyline")
 
-  def addGraphic(self, geometry):
-    self.store.edit() #FeatureStore.MODE_APPEND)
-    f = self.store.createNewFeature()
-    f.set('ID', random.randint(0,200000))
-    f.set('GEOMETRY', geometry)
-    self.store.insert(f)
-    self.store.finishEditing()
 
 class QuickDrawingPolylineListener(PolylineListener):
 
@@ -49,12 +37,10 @@ class QuickDrawingPolylineListener(PolylineListener):
     PolylineListener.__init__(self)
     self.mapControl = mapControl
     self.mapContext = self.mapControl.getMapContext()
-    self.graphicsLayer = self.mapContext.getGraphicsLayer() #"quickdrawing")
     self.quickdrawing = quickdrawing
     self.projection = self.mapControl.getProjection()
-
+  
   def points(self, event):
-    #self.mapContext.invalidate()
     pass
     
   def pointDoubleClick(self, event):
@@ -62,27 +48,28 @@ class QuickDrawingPolylineListener(PolylineListener):
     
   def getImageCursor(self):
     """Evento de PointListener"""
-    return IconThemeHelper.getImage("layout-graphic-edit-vertex")
-    #return IconThemeHelper.getImage("cursor-select-by-point")
+    
+    return IconThemeHelper.getImage("cursor-select-by-point")
 
   def cancelDrawing(self):
     """Evento de PointListener"""
     return True
     
   def polylineFinished(self, event):
-    print "finished"
     x = event.getXs()
     y = event.getYs()
     line = geom.createGeometry(geom.LINE, geom.D2)
     for coord in zip(x, y):
       point = geom.createPoint(geom.D2, coord[0], coord[1])
       line.addVertex(point)
-    print "Final line: ", line
+    projection = self.mapControl.getProjection()
+    line.setProjection(projection)
     self.quickdrawing.addGraphic(line)
+    self.mapContext.invalidate()
     
     
   def pointFixed(self, event):
-    print "fixed"
+    pass
 
 
 def main(*args):      

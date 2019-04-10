@@ -16,22 +16,23 @@ from org.gvsig.fmap.geom import Geometry
 from org.gvsig.fmap.mapcontext import MapContextLocator
 
 from qdbasic import QuickDrawingBasic
+from java.lang import Object
 
-class QuickDrawingPoint(QuickDrawingBasic):
+class QuickDrawingSelect(QuickDrawingBasic):
 
   def __init__(self):
-    QuickDrawingBasic.__init__(self)
+    pass
 
   def getTooltipValue(self, point, projection):
     return ""
 
   def setTool(self, mapControl):
-    self.__behavior = PointBehavior(QuickDrawingPointListener(mapControl, self))
+    self.__behavior = PointBehavior(QuickDrawingSelectListener(mapControl, self))
     mapControl.addBehavior("quickdrawingpoint", self.__behavior)
     mapControl.setTool("quickdrawingpoint")
 
 
-class QuickDrawingPointListener(PointListener):
+class QuickDrawingSelectListener(PointListener):
 
   def __init__(self, mapControl, quickdrawing):
     PointListener.__init__(self)
@@ -42,12 +43,30 @@ class QuickDrawingPointListener(PointListener):
 
   def point(self, event):
     p = event.getMapPoint()
-    #r = lambda: random.randint(0, 255)
-    #color = getColorFromRGB(r(), r(), r() ,r())
-    #point = MapContextLocator.getSymbolManager().createSymbol(Geometry.TYPES.POINT, color)
-    #idPolSymbol = self.graphicsLayer.addSymbol(point)
-    #self.graphicsLayer.addGraphic("ejemplo", p,  idPolSymbol, "Label")
-    self.quickdrawing.addGraphic(p)
+    print "select P:", p
+    
+    layer = self.quickdrawing.getLayer()
+    layerTolerance = layer.getDefaultTolerance()
+    tolerance = self.mapControl.getViewPort().toMapDistance(layerTolerance)
+    pBufferTolerance = p.buffer(tolerance)
+                  
+    store = layer.getFeatureStore()
+    store.getFeatureSelection().deselectAll()
+    
+    query = store.createFeatureQuery()
+    viewProjection = self.mapControl.getProjection()
+    query.setFilter(SpatialEvaluatorsFactory.getInstance().intersects(pBufferTolerance,viewProjection,store))
+    query.retrievesAllAttributes()
+    features = store.getFeatureSet(query) #,100)
+
+    if features.getSize() == 0:
+     print "cero"
+    else:
+     for f in features:
+      store.getFeatureSelection().select(f)
+      values = f.getValues()
+      self.quickdrawing.getUI().setUIValues(values)
+      
     self.mapContext.invalidate()
     
   def pointDoubleClick(self, event):
@@ -66,6 +85,6 @@ def main(*args):
   viewPanel = viewDoc.getWindowOfView()
   mapControl = viewPanel.getMapControl()
   
-  reportbypoint = QuickDrawingPoint()
+  reportbypoint = QuickDrawingSelect()
   reportbypoint.setTool(mapControl)
   

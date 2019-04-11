@@ -2,5 +2,7 @@
 
 import gvsig
 
+from addons.QuickDrawing import actions
+
 def main(*args):
-  pass
+  actions.selfRegister()

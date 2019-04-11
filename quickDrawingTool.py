@@ -16,6 +16,14 @@ from org.gvsig.fmap.mapcontext import MapContextLocator
 from qdlib.qdselect import QuickDrawingSelect
 from java.awt import Color
 
+from qdlib.qdpolylineclosed import QuickDrawingPolylineClosed
+
+from qdlib.qdpolygon import QuickDrawingPolygon
+
+from qdlib.qdcircle import QuickDrawingCircle
+
+from qdlib.qdcircumference import QuickDrawingCircumference
+
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
   def __init__(self):
@@ -23,7 +31,6 @@ class QuickDrawingTool(FormPanel):
     self.initUI()
     self.mapContext = gvsig.currentView().getMapContext()
     self.mapControl = gvsig.currentView().getWindowOfView().getMapControl()
-    print "working.."
     if self.mapContext.getGraphicsLayer(self.DEFAULT_DRAW_LAYER)!=None:
       self.layer = self.mapContext.getGraphicsLayer(self.DEFAULT_DRAW_LAYER)
       self.store = self.layer.getFeatureStore()
@@ -66,7 +73,31 @@ class QuickDrawingTool(FormPanel):
     quickdrawingpolyline.setUI(self)
     quickdrawingpolyline.setLayer(self.layer)
     quickdrawingpolyline.setTool(self.mapControl)
-
+    
+  def btnDrawPolylineClosed_click(self, *args):
+    quickdrawingpolyline = QuickDrawingPolylineClosed()
+    quickdrawingpolyline.setUI(self)
+    quickdrawingpolyline.setLayer(self.layer)
+    quickdrawingpolyline.setTool(self.mapControl)
+    
+  def btnDrawPolygon_click(self, *args):
+    quickdrawingpolyline = QuickDrawingPolygon()
+    quickdrawingpolyline.setUI(self)
+    quickdrawingpolyline.setLayer(self.layer)
+    quickdrawingpolyline.setTool(self.mapControl)
+    
+  def btnDrawCircle_click(self, *args):
+    quickdrawingcircle = QuickDrawingCircle()
+    quickdrawingcircle.setUI(self)
+    quickdrawingcircle.setLayer(self.layer)
+    quickdrawingcircle.setTool(self.mapControl)
+    
+  def btnDrawCircumference_click(self, *args):
+    quickdrawingcircumference = QuickDrawingCircumference()
+    quickdrawingcircumference.setUI(self)
+    quickdrawingcircumference.setLayer(self.layer)
+    quickdrawingcircumference.setTool(self.mapControl)
+  
   def btnApply_click(self, *args):
     values = self.graphicValues()
     print "apply"

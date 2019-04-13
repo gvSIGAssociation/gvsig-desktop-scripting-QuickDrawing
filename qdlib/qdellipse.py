@@ -3,10 +3,10 @@
 import gvsig
 from gvsig import geom
 from java.awt.geom import Point2D
-from org.gvsig.fmap.mapcontrol.tools.Listeners import AbstractCircleListener
+from org.gvsig.fmap.mapcontrol.tools.Listeners import EllipseListener
 from org.gvsig.fmap.mapcontext.layers.vectorial import SpatialEvaluatorsFactory
 from org.gvsig.fmap import IconThemeHelper
-from org.gvsig.fmap.mapcontrol.tools.Behavior import CircleBehavior
+from org.gvsig.fmap.mapcontrol.tools.Behavior import EllipseBehavior
 from org.gvsig.tools import ToolsLocator
 import random
 from gvsig.utils import *
@@ -17,7 +17,7 @@ from org.gvsig.fmap.dal.feature import FeatureStore
 
 from qdbasic import QuickDrawingBasic
 
-class QuickDrawingCircle(QuickDrawingBasic):
+class QuickDrawingEllipse(QuickDrawingBasic):
 
   def __init__(self):
     QuickDrawingBasic.__init__(self)
@@ -26,15 +26,15 @@ class QuickDrawingCircle(QuickDrawingBasic):
     return ""
 
   def setTool(self, mapControl):
-    self.behavior = CircleBehavior(QuickDrawingCircleListener(mapControl, self))
+    self.behavior = EllipseBehavior(QuickDrawingEllipseListener(mapControl, self))
     mapControl.addBehavior("quickdrawingpolyline", self.behavior)
     mapControl.setTool("quickdrawingpolyline")
 
 
-class QuickDrawingCircleListener(AbstractCircleListener):
+class QuickDrawingEllipseListener(EllipseListener):
 
   def __init__(self, mapControl, quickdrawing):
-    AbstractCircleListener.__init__(self)
+    EllipseListener.__init__(self)
     self.mapControl = mapControl
     self.mapContext = self.mapControl.getMapContext()
     self.quickdrawing = quickdrawing
@@ -49,8 +49,8 @@ class QuickDrawingCircleListener(AbstractCircleListener):
     """Evento de PointListener"""
     return False
     
-  def circleFinished(self, event):
-    circle = event.getCircle()
+  def ellipseFinished(self, event):
+    circle = event.getEllipse()
     if circle!=None:
       projection = self.mapControl.getProjection()
       circle.setProjection(projection)
@@ -59,12 +59,14 @@ class QuickDrawingCircleListener(AbstractCircleListener):
       
   def circle(self, event):
     pass
+  def ellipse(self, event):
+    pass
 
 def main(*args):      
   viewDoc = gvsig.currentView()
   viewPanel = viewDoc.getWindowOfView()
   mapControl = viewPanel.getMapControl()
   
-  reportbypoint = QuickDrawingCircle()
+  reportbypoint = QuickDrawingEllipse()
   reportbypoint.setTool(mapControl)
   

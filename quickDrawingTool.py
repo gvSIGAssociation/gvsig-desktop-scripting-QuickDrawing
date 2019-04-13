@@ -24,6 +24,10 @@ from qdlib.qdcircle import QuickDrawingCircle
 
 from qdlib.qdcircumference import QuickDrawingCircumference
 
+from qdlib.qdellipse import QuickDrawingEllipse
+
+from qdlib.qdellipsefill import QuickDrawingEllipseLine
+
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
   def __init__(self):
@@ -97,7 +101,19 @@ class QuickDrawingTool(FormPanel):
     quickdrawingcircumference.setUI(self)
     quickdrawingcircumference.setLayer(self.layer)
     quickdrawingcircumference.setTool(self.mapControl)
-  
+    
+  def btnDrawEllipse_click(self, *args):
+    quickdrawingellipse = QuickDrawingEllipse()
+    quickdrawingellipse.setUI(self)
+    quickdrawingellipse.setLayer(self.layer)
+    quickdrawingellipse.setTool(self.mapControl)
+    
+  def btnDrawEllipseLine_click(self, *args):
+    quickdrawingellipsefill = QuickDrawingEllipseLine()
+    quickdrawingellipsefill.setUI(self)
+    quickdrawingellipsefill.setLayer(self.layer)
+    quickdrawingellipsefill.setTool(self.mapControl)
+    
   def btnApply_click(self, *args):
     values = self.graphicValues()
     print "apply"

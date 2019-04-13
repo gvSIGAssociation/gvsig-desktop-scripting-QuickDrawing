@@ -4,29 +4,23 @@ import gvsig
 
 from gvsig import getResource
 from gvsig.libs.formpanel import FormPanel
-from addons.QuickDrawing.qdlib.qdpoint import QuickDrawingPoint
+
 from org.gvsig.tools.swing.api import ToolsSwingLocator
-
-
-from qdlib.qdpolyline import QuickDrawingPolyline
-from qdlib.drawGraphicLayer import createMemoryStore
-
 from org.gvsig.fmap.mapcontext import MapContextLocator
 
-from qdlib.qdselect import QuickDrawingSelect
 from java.awt import Color
 
+from qdlib.qdpoint import QuickDrawingPoint
+from qdlib.qdpolyline import QuickDrawingPolyline
+from qdlib.drawGraphicLayer import createMemoryStore
+from qdlib.qdselect import QuickDrawingSelect
 from qdlib.qdpolylineclosed import QuickDrawingPolylineClosed
-
 from qdlib.qdpolygon import QuickDrawingPolygon
-
 from qdlib.qdcircle import QuickDrawingCircle
-
 from qdlib.qdcircumference import QuickDrawingCircumference
-
 from qdlib.qdellipse import QuickDrawingEllipse
-
 from qdlib.qdellipsefill import QuickDrawingEllipseLine
+from qdlib.qdselectrectangle import QuickDrawingSelectRectangle
 
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
@@ -72,6 +66,12 @@ class QuickDrawingTool(FormPanel):
     quickdrawingselect.setLayer(self.layer)
     quickdrawingselect.setTool(self.mapControl)
     
+  def btnDrawSelectRectangle_click(self, *args):
+    quickdrawingselectrectangle = QuickDrawingSelectRectangle()
+    quickdrawingselectrectangle.setUI(self)
+    quickdrawingselectrectangle.setLayer(self.layer)
+    quickdrawingselectrectangle.setTool(self.mapControl)
+    
   def btnDrawPolyline_click(self, *args):
     quickdrawingpolyline = QuickDrawingPolyline()
     quickdrawingpolyline.setUI(self)
@@ -113,6 +113,11 @@ class QuickDrawingTool(FormPanel):
     quickdrawingellipsefill.setUI(self)
     quickdrawingellipsefill.setLayer(self.layer)
     quickdrawingellipsefill.setTool(self.mapControl)
+  def btnDrawHand_click(self, *args):
+    quickdrawingfreehand = QuickDrawingFreeHand()
+    quickdrawingfreehand.setUI(self)
+    quickdrawingfreehand.setLayer(self.layer)
+    quickdrawingfreehand.setTool(self.mapControl)
     
   def btnApply_click(self, *args):
     values = self.graphicValues()

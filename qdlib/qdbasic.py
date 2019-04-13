@@ -45,14 +45,14 @@ class QuickDrawingBasic(object):
     values = self.getUIValues()
     if self.store==None:
       return
-    self.store.edit() #FeatureStore.MODE_APPEND)
+    if not self.store.isEditing(): self.store.edit()
     f = self.store.createNewFeature()
     for key,value in values.iteritems():
       f.set(key, value)
     f.set('ID', UUID.randomUUID().toString())
     f.set('GEOMETRY', geometry)
     self.store.insert(f)
-    self.store.finishEditing()
+    #self.store.finishEditing()
 
     
 def main(*args):

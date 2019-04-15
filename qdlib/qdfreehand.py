@@ -6,7 +6,7 @@ from java.awt.geom import Point2D
 from org.gvsig.fmap.mapcontrol.tools.Listeners import PolylineListener
 from org.gvsig.fmap.mapcontext.layers.vectorial import SpatialEvaluatorsFactory
 from org.gvsig.fmap import IconThemeHelper
-from org.gvsig.fmap.mapcontrol.tools.Behavior import PolylineBehavior
+from org.gvsig.fmap.mapcontrol.tools.Behavior import FreehandBehavior
 from org.gvsig.tools import ToolsLocator
 import random
 from gvsig.utils import *
@@ -17,7 +17,7 @@ from org.gvsig.fmap.dal.feature import FeatureStore
 
 from qdbasic import QuickDrawingBasic
 
-class QuickDrawingFreeHand(QuickDrawingBasic):
+class QuickDrawingFreehand(QuickDrawingBasic):
 
   def __init__(self):
     QuickDrawingBasic.__init__(self)
@@ -26,12 +26,12 @@ class QuickDrawingFreeHand(QuickDrawingBasic):
     return ""
 
   def setTool(self, mapControl):
-    self.behavior = PolylineBehavior(QuickDrawingFreeHandListener(mapControl, self))
+    self.behavior = FreehandBehavior(QuickDrawingFreehandListener(mapControl, self))
     mapControl.addBehavior("quickdrawingpolyline", self.behavior)
     mapControl.setTool("quickdrawingpolyline")
 
 
-class QuickDrawingFreeHandListener(PolylineListener):
+class QuickDrawingFreehandListener(PolylineListener):
 
   def __init__(self, mapControl, quickdrawing):
     PolylineListener.__init__(self)
@@ -77,6 +77,6 @@ def main(*args):
   viewPanel = viewDoc.getWindowOfView()
   mapControl = viewPanel.getMapControl()
   
-  reportbypoint = QuickDrawingFreeHand()
+  reportbypoint = QuickDrawingFreehand()
   reportbypoint.setTool(mapControl)
   

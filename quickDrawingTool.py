@@ -22,6 +22,8 @@ from qdlib.qdellipse import QuickDrawingEllipse
 from qdlib.qdellipsefill import QuickDrawingEllipseLine
 from qdlib.qdselectrectangle import QuickDrawingSelectRectangle
 
+from qdlib.qdfreehand import QuickDrawingFreehand
+
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
   def __init__(self):
@@ -113,8 +115,9 @@ class QuickDrawingTool(FormPanel):
     quickdrawingellipsefill.setUI(self)
     quickdrawingellipsefill.setLayer(self.layer)
     quickdrawingellipsefill.setTool(self.mapControl)
+    
   def btnDrawHand_click(self, *args):
-    quickdrawingfreehand = QuickDrawingFreeHand()
+    quickdrawingfreehand = QuickDrawingFreehand()
     quickdrawingfreehand.setUI(self)
     quickdrawingfreehand.setLayer(self.layer)
     quickdrawingfreehand.setTool(self.mapControl)
@@ -132,7 +135,7 @@ class QuickDrawingTool(FormPanel):
       for key,value in values.iteritems():
         fe.set(key, value)
       self.store.update(fe)
-    self.store.commit()
+    #self.store.commit()
     print "end apply"
     
   def graphicValues(self):

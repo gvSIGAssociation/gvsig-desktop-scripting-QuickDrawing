@@ -43,7 +43,12 @@ class QuickDrawingTool(FormPanel):
     #DELETE
     #self.layer.setName(DEFAULT_DRAW_LAYER)
     #print "layer to add: ", self.layer
-    #gvsig.currentView().addLayer(self.layer)
+    gvsig.currentView().addLayer(self.layer)
+        ## Apply legend
+    from org.gvsig.symbology import SymbologyLocator
+    m = SymbologyLocator.getSymbologyManager()
+    vl = m.createDynamicVectorLegend()
+    self.layer.setLegend(vl)
 
   def getGraphicLayer(self):
     return self.layer
@@ -135,13 +140,15 @@ class QuickDrawingTool(FormPanel):
       for key,value in values.iteritems():
         fe.set(key, value)
       self.store.update(fe)
+
+
     #self.store.commit()
     print "end apply"
     
   def graphicValues(self):
-    values = {"GEOMLINE": self.pickerColorOutline.get().getRGB(),
-              "GEOMFILL": self.pickerColorFill.get().getRGB(),
-              "GEOMWIDTH": self.spnWidth.getValue(),
+    values = {"COUTLINE": self.pickerColorOutline.get().getRGB(),
+              "CFILL": self.pickerColorFill.get().getRGB(),
+              "CSIZE": self.spnWidth.getValue(),
               "LBLTXT": 'STRING',
               "LBLCOLOR": 9999,
               "LBLFONT": 'STRING',
@@ -150,8 +157,14 @@ class QuickDrawingTool(FormPanel):
     return values
     
   def setUIValues(self, values):
-    outline = Color(values["GEOMLINE"])
+    outline = Color(values["COUTLINE"])
+    fill = Color(values["CFILL"])
+    size = values["CSIZE"]
+    
     self.pickerColorOutline.set(outline)
+    self.pickerColorFill.set(fill)
+    
+    self.spnWidth.setValue(size)
   
 def main(*args):
   

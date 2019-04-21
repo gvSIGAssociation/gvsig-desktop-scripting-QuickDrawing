@@ -27,8 +27,8 @@ class QuickDrawingEllipse(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.behavior = EllipseBehavior(QuickDrawingEllipseListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpolyline", self.behavior)
-    mapControl.setTool("quickdrawingpolyline")
+    mapControl.addBehavior("quickdrawingellipse", self.behavior)
+    mapControl.setTool("quickdrawingellipse")
 
 
 class QuickDrawingEllipseListener(EllipseListener):

@@ -28,8 +28,8 @@ class QuickDrawingSelect(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.__behavior = PointBehavior(QuickDrawingSelectListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpoint", self.__behavior)
-    mapControl.setTool("quickdrawingpoint")
+    mapControl.addBehavior("quickdrawingselectpoint", self.__behavior)
+    mapControl.setTool("quickdrawingselectpoint")
 
 
 class QuickDrawingSelectListener(PointListener):

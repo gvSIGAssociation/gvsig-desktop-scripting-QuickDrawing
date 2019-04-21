@@ -27,8 +27,8 @@ class QuickDrawingFreehand(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.behavior = FreehandBehavior(QuickDrawingFreehandListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpolyline", self.behavior)
-    mapControl.setTool("quickdrawingpolyline")
+    mapControl.addBehavior("quickdrawingfreehand", self.behavior)
+    mapControl.setTool("quickdrawingfreehand")
 
 
 class QuickDrawingFreehandListener(PolylineListener):

@@ -28,8 +28,8 @@ class QuickDrawingSelectRectangle(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.__behavior = RectangleBehavior(QuickDrawingSelectRectangleListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpoint", self.__behavior)
-    mapControl.setTool("quickdrawingpoint")
+    mapControl.addBehavior("quickdrawingselectrectangle", self.__behavior)
+    mapControl.setTool("quickdrawingselectrectangle")
 
 
 class QuickDrawingSelectRectangleListener(RectangleListener):

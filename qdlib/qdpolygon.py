@@ -27,8 +27,8 @@ class QuickDrawingPolygon(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.behavior = PolygonBehavior(QuickDrawingPolygonListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpolyline", self.behavior)
-    mapControl.setTool("quickdrawingpolyline")
+    mapControl.addBehavior("quickdrawingpolygon", self.behavior)
+    mapControl.setTool("quickdrawingpolygon")
 
 
 class QuickDrawingPolygonListener(PolylineListener):

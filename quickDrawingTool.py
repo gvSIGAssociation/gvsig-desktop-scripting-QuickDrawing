@@ -5,11 +5,6 @@ import gvsig
 from gvsig import getResource
 from gvsig.libs.formpanel import FormPanel
 
-from org.gvsig.tools.swing.api import ToolsSwingLocator
-from org.gvsig.fmap.mapcontext import MapContextLocator
-
-from java.awt import Color
-
 from qdlib.qdpoint import QuickDrawingPoint
 from qdlib.qdpolyline import QuickDrawingPolyline
 from qdlib.drawGraphicLayer import createMemoryStore
@@ -21,13 +16,19 @@ from qdlib.qdcircumference import QuickDrawingCircumference
 from qdlib.qdellipse import QuickDrawingEllipse
 from qdlib.qdellipsefill import QuickDrawingEllipseLine
 from qdlib.qdselectrectangle import QuickDrawingSelectRectangle
-
+from qdlib.qdrectangle import QuickDrawingRectangle
 from qdlib.qdfreehand import QuickDrawingFreehand
+
+from java.awt import Color
+from org.gvsig.tools.swing.api import ToolsSwingLocator
+from org.gvsig.fmap.mapcontext import MapContextLocator
+from org.gvsig.gui.beans.swing import JComboBoxFonts
+from org.gvsig.symbology.fmap.mapcontext.rendering.legend.styling import LabelingFactory
 
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
   def __init__(self):
-    FormPanel.__init__(self,getResource(__file__,"quickDrawingTool.xml"))
+    FormPanel.__init__(self,getResource(__file__,"quickDrawingTool2.xml"))
     self.initUI()
     self.mapContext = gvsig.currentView().getMapContext()
     self.mapControl = gvsig.currentView().getWindowOfView().getMapControl()
@@ -41,14 +42,23 @@ class QuickDrawingTool(FormPanel):
       self.mapContext.setGraphicsLayer(self.DEFAULT_DRAW_LAYER, self.layer)
 
     #DELETE
+    
     #self.layer.setName(DEFAULT_DRAW_LAYER)
     #print "layer to add: ", self.layer
-    gvsig.currentView().addLayer(self.layer)
+    
+    #gvsig.currentView().addLayer(self.layer)
         ## Apply legend
+    
     from org.gvsig.symbology import SymbologyLocator
     m = SymbologyLocator.getSymbologyManager()
     vl = m.createDynamicVectorLegend()
+    
     self.layer.setLegend(vl)
+    
+
+    dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
+    self.layer.setLabelingStrategy(dynamicLabeling)
+    self.layer.setIsLabeled(True)
 
   def getGraphicLayer(self):
     return self.layer
@@ -57,9 +67,24 @@ class QuickDrawingTool(FormPanel):
     tsl = ToolsSwingLocator.getToolsSwingManager()
     self.jslOutline.setPaintLabels(False)
     self.jslFill.setPaintLabels(False)
+    self.jslLabelColor.setPaintLabels(False)
     self.pickerColorOutline = tsl.createColorPickerController(self.txtOutline, self.btnOutline, self.jslOutline)
     self.pickerColorFill = tsl.createColorPickerController(self.txtFill, self.btnFill, self.jslFill)
     self.spnWidth.setValue(1)
+    self.cfonts = JComboBoxFonts()
+    try:
+      self.cfonts.setSelectedItem("DejaVu Sans")
+      self.cfonts.setSelectedItem("Liberation Sans")
+      self.cfonts.setSelectedItem("Serif")
+      self.cfonts.setSelectedItem("Arial")
+    except:
+      pass
+    self.jpn1.add(self.cfonts)
+    self.jpn1.updateUI()
+
+    self.spnLabelSize.setValue(12)
+    self.pickerFontColor = tsl.createColorPickerController(self.txtLabelColor, self.btnLabelColor, self.jslLabelColor)
+
     
   def btnDrawPoint_click(self, *args):
     quickdrawingpoint = QuickDrawingPoint()
@@ -121,50 +146,90 @@ class QuickDrawingTool(FormPanel):
     quickdrawingellipsefill.setLayer(self.layer)
     quickdrawingellipsefill.setTool(self.mapControl)
     
+  def btnDrawRectangle_click(self, *args):
+    quickdrawrectangle = QuickDrawingRectangle()
+    quickdrawrectangle.setUI(self)
+    quickdrawrectangle.setLayer(self.layer)
+    quickdrawrectangle.setTool(self.mapControl)
+    
   def btnDrawHand_click(self, *args):
     quickdrawingfreehand = QuickDrawingFreehand()
     quickdrawingfreehand.setUI(self)
     quickdrawingfreehand.setLayer(self.layer)
     quickdrawingfreehand.setTool(self.mapControl)
     
-  def btnApply_click(self, *args):
-    values = self.graphicValues()
-    print "apply"
+  def btnDrawDelete_click(self, *args):
     if not self.store.isEditing():
       self.store.edit()
-    print "edit"
+    features = self.store.getFeatureSelection()
+    for f in features:
+      features.delete(f)
+    #self.store.commit()
+    self.mapContext.invalidate()
+    pass
+    
+  def btnApply_click(self, *args):
+    values = self.graphicValues()
+    if not self.store.isEditing():
+      self.store.edit()
     features = self.store.getFeatureSelection()
     for f in features:
       fe = f.getEditable()
-      print "F: ", f
       for key,value in values.iteritems():
         fe.set(key, value)
       self.store.update(fe)
-
-
     #self.store.commit()
+    self.mapContext.invalidate()
     print "end apply"
     
   def graphicValues(self):
     values = {"COUTLINE": self.pickerColorOutline.get().getRGB(),
               "CFILL": self.pickerColorFill.get().getRGB(),
               "CSIZE": self.spnWidth.getValue(),
-              "LBLTXT": 'STRING',
-              "LBLCOLOR": 9999,
-              "LBLFONT": 'STRING',
-              "LBLSIZE": 9999
+              "CROTATION": self.spnRotation.getValue(),
+              "LTEXT": "'"+self.txtLabelText.getText()+"'",
+              "LCOLOR": self.pickerFontColor.get().getRGB(),
+              "LROTATION":self.spnLabelRotation.getValue(),
+              "LFONT": "'"+self.cfonts.getSelectedItem()+"'",
+              "LFONTS": 0,
+              "LHEIGHT": self.spnLabelSize.getValue()
               }
     return values
     
   def setUIValues(self, values):
-    outline = Color(values["COUTLINE"])
-    fill = Color(values["CFILL"])
-    size = values["CSIZE"]
-    
+    outline = Color(values["COUTLINE"], True)
     self.pickerColorOutline.set(outline)
+    
+    fill = Color(values["CFILL"], True)
     self.pickerColorFill.set(fill)
     
+    size = values["CSIZE"]
     self.spnWidth.setValue(size)
+    
+    rotation = values["CROTATION"]
+    self.spnRotation.setValue(rotation)
+    
+    ltext = values["LTEXT"].replace("'","")
+    self.txtLabelText.setText(ltext)
+    
+    lcolor = Color(values["LCOLOR"], True)
+    self.pickerFontColor.set(lcolor)
+    
+    lrotation = values["LROTATION"]
+    self.spnLabelRotation.setValue(lrotation)
+    
+    lfont = values["LFONT"].replace("'","")
+    print lfont
+    try:
+      self.cfonts.setSelectedItem(lfont)
+    except:
+      pass
+    
+    lfonts = values["LFONTS"]
+    
+    lheight = values["LHEIGHT"]
+    self.spnLabelSize.setValue(lheight)
+    
   
 def main(*args):
   

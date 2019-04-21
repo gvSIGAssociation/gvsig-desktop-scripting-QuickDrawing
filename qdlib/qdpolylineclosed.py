@@ -27,8 +27,8 @@ class QuickDrawingPolylineClosed(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.behavior = PolygonBehavior(QuickDrawingPolylineClosedListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpolyline", self.behavior)
-    mapControl.setTool("quickdrawingpolyline")
+    mapControl.addBehavior("quickdrawingpolylineclosed", self.behavior)
+    mapControl.setTool("quickdrawingpolylineclosed")
 
 
 class QuickDrawingPolylineClosedListener(PolylineListener):

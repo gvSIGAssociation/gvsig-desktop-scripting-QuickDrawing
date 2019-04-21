@@ -27,8 +27,8 @@ class QuickDrawingCircumference(QuickDrawingBasic):
 
   def setTool(self, mapControl):
     self.behavior = CircleBehavior(QuickDrawingCircumferenceListener(mapControl, self))
-    mapControl.addBehavior("quickdrawingpolyline", self.behavior)
-    mapControl.setTool("quickdrawingpolyline")
+    mapControl.addBehavior("quickdrawingcircumference", self.behavior)
+    mapControl.setTool("quickdrawingcircumference")
 
 
 class QuickDrawingCircumferenceListener(AbstractCircleListener):
@@ -49,7 +49,7 @@ class QuickDrawingCircumferenceListener(AbstractCircleListener):
     """Evento de PointListener"""
     return False
   def circleFinished(self, event):
-    circle = event.getCircumference()
+    circle = event.getCircumference().toLines()
     if circle!=None:
       projection = self.mapControl.getProjection()
       circle.setProjection(projection)

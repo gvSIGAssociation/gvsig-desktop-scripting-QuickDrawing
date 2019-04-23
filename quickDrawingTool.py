@@ -57,6 +57,15 @@ class QuickDrawingTool(FormPanel):
     
 
     dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
+
+    dynamicLabeling.setRotationField("LROTATION")
+    dynamicLabeling.setTextField("LTEXT")
+    dynamicLabeling.setHeightField("LHEIGHT")
+    dynamicLabeling.setColorField("LCOLOR")
+    dynamicLabeling.setFontField("LFONT")
+    dynamicLabeling.setFontStyleField("LFONTS")
+
+    
     self.layer.setLabelingStrategy(dynamicLabeling)
     self.layer.setIsLabeled(True)
 

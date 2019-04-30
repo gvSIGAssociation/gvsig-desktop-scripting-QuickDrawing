@@ -24,13 +24,15 @@ def createMemoryStore():
   eft.append("CFILL", "INTEGER", 9)
   eft.append("CSIZE", "INTEGER", 9)
   eft.append("CROTATION", "INTEGER", 9)
-              
+  
   eft.append("LTEXT", 'STRING', 150)
   eft.append("LCOLOR", 'INTEGER', 9)
   eft.append("LROTATION", 'INTEGER', 9)
   eft.append("LFONT", 'STRING', 150)
   eft.append("LFONTS", 'INTEGER', 9)
   eft.append("LHEIGHT", 'INTEGER', 5)
+  eft.append("LUNIT", 'INTEGER', 2)
+  eft.append("LREF", 'INTEGER', 2)
   
   eft.append("GEOMETRY", "GEOMETRY")
   eft.get("GEOMETRY").setGeometryType(geom.NULL, geom.UNKNOWN)

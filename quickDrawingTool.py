@@ -24,6 +24,10 @@ from org.gvsig.tools.swing.api import ToolsSwingLocator
 from org.gvsig.fmap.mapcontext import MapContextLocator
 from org.gvsig.gui.beans.swing import JComboBoxFonts
 from org.gvsig.symbology.fmap.mapcontext.rendering.legend.styling import LabelingFactory
+from org.gvsig.app.gui.styling import JComboBoxUnitsReferenceSystem
+from org.gvsig.app.gui import JComboBoxUnits
+from org.gvsig.symbology import SymbologyLocator
+from org.gvsig.expressionevaluator import ExpressionEvaluatorLocator
 
 class QuickDrawingTool(FormPanel):
   DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
@@ -47,24 +51,58 @@ class QuickDrawingTool(FormPanel):
     #print "layer to add: ", self.layer
     
     #gvsig.currentView().addLayer(self.layer)
-        ## Apply legend
+    #    ## Apply legend
     
-    from org.gvsig.symbology import SymbologyLocator
+    # Set dynamic legend
     m = SymbologyLocator.getSymbologyManager()
     vl = m.createDynamicVectorLegend()
+    expression = ExpressionEvaluatorLocator.getManager().createExpression()
+    
+    expression.setPhrase("COUTLINE")
+    vl.setOutlineColor(expression.clone())
+    
+    expression.setPhrase("CFILL")
+    vl.setFillColor(expression.clone())
+    
+    expression.setPhrase("CSIZE")
+    vl.setSize(expression.clone())
+    
+    expression.setPhrase("CROTATION")
+    vl.setRotation(expression.clone())
     
     self.layer.setLegend(vl)
-    
+
+
+    # Set dynamic labeling
 
     dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
-
-    dynamicLabeling.setRotationField("LROTATION")
-    dynamicLabeling.setTextField("LTEXT")
-    dynamicLabeling.setHeightField("LHEIGHT")
-    dynamicLabeling.setColorField("LCOLOR")
-    dynamicLabeling.setFontField("LFONT")
-    dynamicLabeling.setFontStyleField("LFONTS")
-
+    
+    expression = ExpressionEvaluatorLocator.getManager().createExpression()
+    
+    expression.setPhrase("LROTATION")
+    dynamicLabeling.setRotation(expression.clone())
+    
+    expression.setPhrase("LTEXT")
+    dynamicLabeling.setText(expression.clone())
+    
+    expression.setPhrase("LHEIGHT")
+    dynamicLabeling.setHeight(expression.clone())
+    
+    expression.setPhrase("LCOLOR")
+    dynamicLabeling.setColor(expression.clone())
+    
+    expression.setPhrase("LFONT")
+    dynamicLabeling.setFont(expression.clone())
+    
+    expression.setPhrase("LFONTS")
+    dynamicLabeling.setFontStyle(expression.clone())
+    
+    expression.setPhrase("LUNIT")
+    dynamicLabeling.setUnit(expression.clone())
+    
+    expression.setPhrase("LREF")
+    dynamicLabeling.setReferenceSystem(expression.clone())
+    
     
     self.layer.setLabelingStrategy(dynamicLabeling)
     self.layer.setIsLabeled(True)
@@ -91,6 +129,16 @@ class QuickDrawingTool(FormPanel):
     self.jpn1.add(self.cfonts)
     self.jpn1.updateUI()
 
+    self.cunits = JComboBoxUnits()
+    self.jpn2.add(self.cunits)
+    self.jpn2.updateUI()
+
+
+    self.crefsystem = JComboBoxUnitsReferenceSystem()
+    self.jpn3.add(self.crefsystem)
+    self.jpn3.updateUI()
+    
+    
     self.spnLabelSize.setValue(12)
     self.pickerFontColor = tsl.createColorPickerController(self.txtLabelColor, self.btnLabelColor, self.jslLabelColor)
 
@@ -196,12 +244,14 @@ class QuickDrawingTool(FormPanel):
               "CFILL": self.pickerColorFill.get().getRGB(),
               "CSIZE": self.spnWidth.getValue(),
               "CROTATION": self.spnRotation.getValue(),
-              "LTEXT": "'"+self.txtLabelText.getText()+"'",
+              "LTEXT": self.txtLabelText.getText(),#"'"+self.txtLabelText.getText()+"'",
               "LCOLOR": self.pickerFontColor.get().getRGB(),
               "LROTATION":self.spnLabelRotation.getValue(),
-              "LFONT": "'"+self.cfonts.getSelectedItem()+"'",
+              "LFONT": self.cfonts.getSelectedItem(),#"'"+self.cfonts.getSelectedItem()+"'",
               "LFONTS": 0,
-              "LHEIGHT": self.spnLabelSize.getValue()
+              "LHEIGHT": self.spnLabelSize.getValue(),
+              "LUNIT": self.cunits.getSelectedUnitIndex(),
+              "LREF": self.crefsystem.getSelectedIndex()
               }
     return values
     
@@ -218,7 +268,7 @@ class QuickDrawingTool(FormPanel):
     rotation = values["CROTATION"]
     self.spnRotation.setValue(rotation)
     
-    ltext = values["LTEXT"].replace("'","")
+    ltext = values["LTEXT"] #.replace("'","")
     self.txtLabelText.setText(ltext)
     
     lcolor = Color(values["LCOLOR"], True)
@@ -227,7 +277,7 @@ class QuickDrawingTool(FormPanel):
     lrotation = values["LROTATION"]
     self.spnLabelRotation.setValue(lrotation)
     
-    lfont = values["LFONT"].replace("'","")
+    lfont = values["LFONT"] #.replace("'","")
     print lfont
     try:
       self.cfonts.setSelectedItem(lfont)
@@ -238,7 +288,12 @@ class QuickDrawingTool(FormPanel):
     
     lheight = values["LHEIGHT"]
     self.spnLabelSize.setValue(lheight)
+
+    lunit = values["LUNIT"]
+    self.cunits.setSelectedUnitIndex(lunit)
     
+    lref = values["LREF"]
+    self.crefsystem.setSelectedItem(lunit)
   
 def main(*args):
   

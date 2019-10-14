@@ -74,8 +74,8 @@
               </at>
              </object>
             </at>
-            <at name="width">821</at>
-            <at name="name"/>
+            <at name="name">tltProperties</at>
+            <at name="width">607</at>
             <at name="text">_Symbol_properties</at>
             <at name="alignment">4</at>
             <at name="height">15</at>
@@ -103,7 +103,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.1993436276</at>
+        <at name="id">embedded.906902622</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:6PX:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:7PX:NONE,FILL:DEFAULT:NONE</at>
         <at name="components">
@@ -996,7 +996,7 @@
               </at>
              </object>
             </at>
-            <at name="name"/>
+            <at name="name"></at>
             <at name="fill">
              <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
               <at name="name">fill</at>
@@ -1084,9 +1084,9 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.205995779</at>
+        <at name="id">embedded.1740196261</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:PREF:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
-        <at name="colspecs">FILL:84PX:NONE,FILL:6PX:NONE,FILL:DEFAULT:GROW(1.0)</at>
+        <at name="colspecs">FILL:DEFAULT:GROW(0.2),FILL:6PX:NONE,FILL:PREF:GROW(1.0)</at>
         <at name="components">
          <object classname="java.util.LinkedList">
           <item >
@@ -1135,8 +1135,8 @@
                  </at>
                  <at name="actionCommand">Apply</at>
                  <at name="name">btnApply</at>
-                 <at name="width">62</at>
-                 <at name="text">Apply</at>
+                 <at name="width">68</at>
+                 <at name="text">_Apply</at>
                  <at name="height">22</at>
                 </object>
                </at>
@@ -1190,7 +1190,7 @@
                   </object>
                  </at>
                  <at name="name">lblOutlineColor</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Outline_color</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1250,7 +1250,7 @@
                   </object>
                  </at>
                  <at name="name">lblFillColor</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Fill_color</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1310,7 +1310,7 @@
                   </object>
                  </at>
                  <at name="name">lblSize</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Size</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1350,7 +1350,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">spnWidth</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1404,7 +1404,7 @@
                   </object>
                  </at>
                  <at name="name">lblRotation</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Rotation</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1444,7 +1444,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">spnRotation</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1497,8 +1497,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="width">816</at>
-                 <at name="name"/>
+                 <at name="name">tltLabel</at>
+                 <at name="width">602</at>
                  <at name="text">_Label_properties</at>
                  <at name="alignment">4</at>
                  <at name="height">15</at>
@@ -1554,7 +1554,7 @@
                   </object>
                  </at>
                  <at name="name">lblLabelText</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Text</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1614,7 +1614,7 @@
                   </object>
                  </at>
                  <at name="name">txtLabelText</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1668,7 +1668,7 @@
                   </object>
                  </at>
                  <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_color</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1727,8 +1727,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="name">lblLabelRotation</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_rotation</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1768,7 +1768,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">spnLabelRotation</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -1821,8 +1821,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="name">lblLabelFont</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_font</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -1862,7 +1862,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn1</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">12</at>
                 </object>
                </at>
@@ -1888,7 +1888,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.1244776578</at>
+             <at name="id">embedded.481811949</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:62PX:NONE,FILL:7PX:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -1938,7 +1938,7 @@
                        </object>
                       </at>
                       <at name="name">txtOutline</at>
-                      <at name="width">621</at>
+                      <at name="width">336</at>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -2170,7 +2170,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.1808040062</at>
+             <at name="id">embedded.1365145089</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:7PX:NONE,FILL:62PX:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -2344,7 +2344,7 @@
                        </object>
                       </at>
                       <at name="name">txtFill</at>
-                      <at name="width">621</at>
+                      <at name="width">336</at>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -2452,7 +2452,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.657718502</at>
+             <at name="id">embedded.266747051</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:7PX:NONE,FILL:62PX:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -2626,7 +2626,7 @@
                        </object>
                       </at>
                       <at name="name">txtLabelColor</at>
-                      <at name="width">621</at>
+                      <at name="width">336</at>
                       <at name="height">20</at>
                      </object>
                     </at>
@@ -2761,8 +2761,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="name">lblLabelSize</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_size</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -2802,7 +2802,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">spnLabelSize</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">20</at>
                 </object>
                </at>
@@ -2836,7 +2836,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn2</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">12</at>
                 </object>
                </at>
@@ -2870,7 +2870,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn3</at>
-                 <at name="width">726</at>
+                 <at name="width">441</at>
                  <at name="height">12</at>
                 </object>
                </at>
@@ -2923,8 +2923,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="name">lblLabelUnit</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_unit</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
@@ -2983,8 +2983,8 @@
                    </at>
                   </object>
                  </at>
-                 <at name="name">lblLabelColor</at>
-                 <at name="width">80</at>
+                 <at name="name">lblLabelRef</at>
+                 <at name="width">151</at>
                  <at name="text">_Label_ref</at>
                  <at name="fill">
                   <object classname="com.jeta.forms.store.properties.effects.PaintProperty">

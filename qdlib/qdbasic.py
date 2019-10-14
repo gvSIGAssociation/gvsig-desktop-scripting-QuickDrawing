@@ -40,8 +40,8 @@ class QuickDrawingBasic(object):
     self.ui=ui
     
   def addGraphic(self, geometry):
-    print "addGraphic:", geometry
-    print " to: ", self.store
+    #print "addGraphic:", geometry
+    #print " to: ", self.store
     values = self.getUIValues()
     if self.store==None:
       return
@@ -52,8 +52,7 @@ class QuickDrawingBasic(object):
     f.set('ID', UUID.randomUUID().toString())
     f.set('GEOMETRY', geometry)
     self.store.insert(f)
-    #self.store.finishEditing()
-
+    #print "inserted: ", f
     
 def main(*args):
 

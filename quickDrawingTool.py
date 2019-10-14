@@ -28,87 +28,278 @@ from org.gvsig.app.gui.styling import JComboBoxUnitsReferenceSystem
 from org.gvsig.app.gui import JComboBoxUnits
 from org.gvsig.symbology import SymbologyLocator
 from org.gvsig.expressionevaluator import ExpressionEvaluatorLocator
+from org.gvsig.tools import ToolsLocator
+from org.gvsig.tools.persistence import Persistent
+from gvsig import logger
+from gvsig import LOGGER_WARN,LOGGER_INFO,LOGGER_ERROR
+from org.gvsig.fmap.mapcontext.layers.vectorial import FLyrVect
+from addons.QuickDrawing import saveloadlayers
+from gvsig.geom import *
+from java.awt import Font
+DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
+
+
+class QuickDrawingState(Persistent):
+  def __init__(self):
+      self.layer = None
+      self.COUTLINE= 16724787
+      self.CFILL = -65536
+      self.CSIZE=2
+      self.CROTATION= 0
+      self.LTEXT= ""
+      self.LCOLOR=-1258291200
+      self.LROTATION=0
+      self.LFONT=None
+      self.LFONTS=0
+      self.LHEIGHT=10
+      self.LUNIT=1
+      self.LREF=0
+      
+  def getUIValuesFromState(self):
+      values = { 
+          "COUTLINE": self.COUTLINE,
+          "CFILL": self.CFILL,
+          "CSIZE": self.CSIZE,
+          "CROTATION": self.CROTATION,
+          "LTEXT": self.LTEXT,
+          "LCOLOR": self.LCOLOR,
+          "LROTATION": self.LROTATION,
+          "LFONT":self.LFONT,
+          "LFONTS":self.LFONTS,
+          "LHEIGHT":self.LHEIGHT,
+          "LUNIT":self.LUNIT,
+          "LREF":self.LREF
+      }
+      return values
+  def loadFromState(self, state):
+      stringlayer = state.getString("graphiclayer")
+      
+      if stringlayer == None or stringlayer =="":
+        return
+      else:
+        try:
+          self.layer = saveloadlayers.loadLayersGraphics(stringlayer)
+          self.setDynmicSymbologyLabeling(self.layer)
+        except:
+          logger("Not been able to load graphic layer from properties: " + stringlayer, LOGGER_WARN)
+      # state of the ui
+      self.COUTLINE = state.getInt("COUTLINE")
+      self.CFILL = state.getInt("CFILL")
+      self.CSIZE=  state.getInt("CSIZE")
+      self.CROTATION=  state.getInt("CROTATION")
+      self.LTEXT=  state.getString("LTEXT")
+      self.LCOLOR=  state.getInt("LCOLOR")
+      self.LROTATION=  state.getInt("LROTATION")
+      self.LFONT= state.get("LFONT")
+      self.LFONTS= state.getInt("LFONTS")
+      self.LHEIGHT= state.getInt("LHEIGHT")
+      self.LUNIT= state.getInt("LUNIT")
+      self.LREF= state.getInt("LREF")
+ 
+  def saveToState(self, state):
+      try:
+        layerjson = saveloadlayers.saveGraphicsLayers(self.layer)
+      except:
+        logger("Not been able to convert graphic layer into json. Layer: "+self.layer, LOGGER_WARN)
+      
+      state.set("graphiclayer", layerjson)
+      
+      # ui values
+      state.setValue("COUTLINE",self.COUTLINE)
+      state.setValue("CFILL",self.CFILL)
+      state.setValue("CSIZE",self.CSIZE)
+      state.setValue("CROTATION",self.CROTATION)
+      state.setValue("LTEXT",self.LTEXT)
+      state.setValue("LCOLOR",self.LCOLOR)
+      state.setValue("LROTATION",self.LROTATION)
+      state.setValue("LFONT",self.LFONT)
+      state.setValue("LFONTS",self.LFONTS)
+      state.setValue("LHEIGHT",self.LHEIGHT)
+      state.setValue("LUNIT",self.LUNIT)
+      state.setValue("LREF",self.LREF)
+      
+  def createLayer(self):
+      store = createMemoryStore()
+      mapContextManager = MapContextLocator.getMapContextManager()
+      self.layer = mapContextManager.createLayer(DEFAULT_DRAW_LAYER,store)
+      self.setDynmicSymbologyLabeling(self.layer)
+
+  def setDynmicSymbologyLabeling(self, store):
+      m = SymbologyLocator.getSymbologyManager()
+      vl = m.createDynamicVectorLegend()
+      expression = ExpressionEvaluatorLocator.getManager().createExpression()
+      
+      expression.setPhrase("COUTLINE")
+      vl.setOutlineColor(expression.clone())
+      
+      expression.setPhrase("CFILL")
+      vl.setFillColor(expression.clone())
+      
+      expression.setPhrase("CSIZE")
+      vl.setSize(expression.clone())
+      
+      expression.setPhrase("CROTATION")
+      vl.setRotation(expression.clone())
+      
+      self.layer.setLegend(vl)
+  
+  
+      # Set dynamic labeling
+  
+      dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
+      
+      expression = ExpressionEvaluatorLocator.getManager().createExpression()
+      
+      expression.setPhrase("LROTATION")
+      dynamicLabeling.setRotation(expression.clone())
+      
+      expression.setPhrase("LTEXT")
+      dynamicLabeling.setText(expression.clone())
+      
+      expression.setPhrase("LHEIGHT")
+      dynamicLabeling.setHeight(expression.clone())
+      
+      expression.setPhrase("LCOLOR")
+      dynamicLabeling.setColor(expression.clone())
+      
+      expression.setPhrase("LFONT")
+      dynamicLabeling.setFont(expression.clone())
+      
+      expression.setPhrase("LFONTS")
+      dynamicLabeling.setFontStyle(expression.clone())
+      
+      expression.setPhrase("LUNIT")
+      dynamicLabeling.setUnit(expression.clone())
+      
+      expression.setPhrase("LREF")
+      dynamicLabeling.setReferenceSystem(expression.clone())
+      
+      
+      self.layer.setLabelingStrategy(dynamicLabeling)
+      self.layer.setIsLabeled(True)
+      
+def registerQuickDrawingStatePersistence():
+    manager = ToolsLocator.getPersistenceManager()
+    if (manager.getDefinition("QuickDrawingState") == None):
+      definition = manager.addDefinition(QuickDrawingState, "QuickDrawingState", "QuickDrawingState persistence definition", None, None)
+      definition.addDynFieldString("graphiclayer").setMandatory(False)
+      definition.addDynFieldInt("COUTLINE").setMandatory(False)
+      definition.addDynFieldInt("CFILL").setMandatory(False)
+      definition.addDynFieldInt("CSIZE").setMandatory(False)
+      definition.addDynFieldInt("CROTATION").setMandatory(False)
+      definition.addDynFieldString("LTEXT").setMandatory(False)
+      definition.addDynFieldInt("LCOLOR").setMandatory(False)
+      definition.addDynFieldInt("LROTATION").setMandatory(False)
+      definition.addDynFieldString("LFONT").setMandatory(False) #.setClassOfValue(Font)
+      definition.addDynFieldInt("LFONTS").setMandatory(False)
+      definition.addDynFieldInt("LHEIGHT").setMandatory(False)
+      definition.addDynFieldInt("LUNIT").setMandatory(False)
+      definition.addDynFieldInt("LREF").setMandatory(False)
+
+from java.awt.event import FocusListener
+
+class QDTFocusListener(FocusListener):
+    def __init__(self, ui, view):
+      self.ui = ui
+      self.view = view
+      logger("focus init", LOGGER_WARN)
+      
+    def focusGained(self, e):
+      logger("focus gained", LOGGER_WARN)
+      self.ui.setEnabled(True)
+
+    def focusLost(self, e): #FocusEvent
+      logger("focus lost", LOGGER_WARN)
+      self.ui.setEnabled(False)
+
 
 class QuickDrawingTool(FormPanel):
-  DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
+  
   def __init__(self):
     FormPanel.__init__(self,getResource(__file__,"quickDrawingTool2.xml"))
-    self.initUI()
-    self.mapContext = gvsig.currentView().getMapContext()
+
+    self.view = gvsig.currentView()
+    mapContext = gvsig.currentView().getMapContext()
+    envi = mapContext.getViewPort().getEnvelope()
+    if envi is None:
+      newEnvelope = createEnvelope(pointMin=createPoint2D(0,0),pointMax=createPoint2D(40,10))
+       
+      mapContext.getViewPort().setEnvelope(newEnvelope)
     self.mapControl = gvsig.currentView().getWindowOfView().getMapControl()
-    if self.mapContext.getGraphicsLayer(self.DEFAULT_DRAW_LAYER)!=None:
-      self.layer = self.mapContext.getGraphicsLayer(self.DEFAULT_DRAW_LAYER)
-      self.store = self.layer.getFeatureStore()
-    else:
-      self.store = createMemoryStore()
-      mapContextManager = MapContextLocator.getMapContextManager()
-      self.layer = mapContextManager.createLayer(self.DEFAULT_DRAW_LAYER,self.store)
-      self.mapContext.setGraphicsLayer(self.DEFAULT_DRAW_LAYER, self.layer)
+    #print "add focus.."
+    #self.asJComponent().addFocusListener(QDTFocusListener(self, self.view))
+    # comprobar si es la misma vista
+    #print "..end focus"
+    
+    self.state = self.view.getProperty("quickdrawingstate")
+    
+    if self.state != None and self.state.layer==None:
+      self.state = None
+      
+    if self.state == None:
+      self.state = QuickDrawingState()
+      self.state.createLayer()
+      self.view.setProperty("quickdrawingstate", self.state)
+    drawLayer = mapContext.getGraphicsLayer(DEFAULT_DRAW_LAYER)
+    if drawLayer==None:
+      mapContext.setGraphicsLayer(DEFAULT_DRAW_LAYER, self.state.layer)
+      mapContext.invalidate()
+    
+    self.translateUI()
+    self.initUI()
 
-    #DELETE
+    uiValuesFromState = self.state.getUIValuesFromState()
+    self.setUIValues(uiValuesFromState)
+  def setUIValuesToState(self):
+    uiValues = self.graphicValues()
+    for key in uiValues.keys():
+      if key == "COUTLINE":
+        self.state.COUTLINE= uiValues[key]
+      if key == "CFILL":
+        self.state.CFILL = uiValues[key]
+      if key == "CSIZE":
+        self.state.CSIZE=uiValues[key]
+      if key == "CROTATION":
+        self.state.CROTATION= uiValues[key]
+      if key == "LTEXT":
+        self.state.LTEXT= uiValues[key]
+      if key == "LCOLOR":
+        self.state.LCOLOR=uiValues[key]
+      if key == "LROTATION":
+        self.state.LROTATION=uiValues[key]
+      if key == "LFONT":
+        self.state.LFONT=uiValues[key]
+      if key == "LFONTS":
+        self.state.LFONTS=uiValues[key]
+      if key  == "LHEIGHT":
+        self.state.LHEIGHT=uiValues[key]
+      if key == "LUNIT":
+        self.state.LUNIT=uiValues[key]
+      if key == "LREF":
+        self.state.LREF=uiValues[key]
+  def setEnabled(self, enabled):
+    self.asJComponent().setEnabled(enabled)
     
-    #self.layer.setName(DEFAULT_DRAW_LAYER)
-    #print "layer to add: ", self.layer
-    
-    #gvsig.currentView().addLayer(self.layer)
-    #    ## Apply legend
-    
-    # Set dynamic legend
-    m = SymbologyLocator.getSymbologyManager()
-    vl = m.createDynamicVectorLegend()
-    expression = ExpressionEvaluatorLocator.getManager().createExpression()
-    
-    expression.setPhrase("COUTLINE")
-    vl.setOutlineColor(expression.clone())
-    
-    expression.setPhrase("CFILL")
-    vl.setFillColor(expression.clone())
-    
-    expression.setPhrase("CSIZE")
-    vl.setSize(expression.clone())
-    
-    expression.setPhrase("CROTATION")
-    vl.setRotation(expression.clone())
-    
-    self.layer.setLegend(vl)
+  def translateUI(self):
+    i18nManager = ToolsLocator.getI18nManager()
 
-
-    # Set dynamic labeling
-
-    dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
+    self.tltProperties.setText(i18nManager.getTranslation("_Symbol_properties"))
+    self.lblOutlineColor.setText(i18nManager.getTranslation("_Outline_color"))
+    self.lblFillColor.setText(i18nManager.getTranslation("_Fill_color"))
+    self.lblSize.setText(i18nManager.getTranslation("_Size"))
+    self.lblRotation.setText(i18nManager.getTranslation("_Rotation"))
+    self.lblLabelText.setText(i18nManager.getTranslation("_Text"))
+    self.lblLabelColor.setText(i18nManager.getTranslation("_Label_color"))
+    self.lblLabelRotation.setText(i18nManager.getTranslation("_Label_rotation"))
+    self.lblLabelFont.setText(i18nManager.getTranslation("_Label_font"))
+    self.lblLabelSize.setText(i18nManager.getTranslation("_Label_size"))
+    self.lblLabelUnit.setText(i18nManager.getTranslation("_Label_unit"))
+    self.lblLabelRef.setText(i18nManager.getTranslation("_Label_ref"))
+    self.btnApply.setText(i18nManager.getTranslation("_Apply"))
+    self.tltLabel.setText(i18nManager.getTranslation("_Label_properties"))
     
-    expression = ExpressionEvaluatorLocator.getManager().createExpression()
-    
-    expression.setPhrase("LROTATION")
-    dynamicLabeling.setRotation(expression.clone())
-    
-    expression.setPhrase("LTEXT")
-    dynamicLabeling.setText(expression.clone())
-    
-    expression.setPhrase("LHEIGHT")
-    dynamicLabeling.setHeight(expression.clone())
-    
-    expression.setPhrase("LCOLOR")
-    dynamicLabeling.setColor(expression.clone())
-    
-    expression.setPhrase("LFONT")
-    dynamicLabeling.setFont(expression.clone())
-    
-    expression.setPhrase("LFONTS")
-    dynamicLabeling.setFontStyle(expression.clone())
-    
-    expression.setPhrase("LUNIT")
-    dynamicLabeling.setUnit(expression.clone())
-    
-    expression.setPhrase("LREF")
-    dynamicLabeling.setReferenceSystem(expression.clone())
-    
-    
-    self.layer.setLabelingStrategy(dynamicLabeling)
-    self.layer.setIsLabeled(True)
-
   def getGraphicLayer(self):
-    return self.layer
+    return self.state.layer
     
   def initUI(self):
     tsl = ToolsSwingLocator.getToolsSwingManager()
@@ -144,100 +335,113 @@ class QuickDrawingTool(FormPanel):
 
     
   def btnDrawPoint_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingpoint = QuickDrawingPoint()
     quickdrawingpoint.setUI(self)
-    quickdrawingpoint.setLayer(self.layer)
+    quickdrawingpoint.setLayer(self.state.layer)
     quickdrawingpoint.setTool(self.mapControl)
     
   def btnDrawSelect_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingselect = QuickDrawingSelect()
     quickdrawingselect.setUI(self)
-    quickdrawingselect.setLayer(self.layer)
+    quickdrawingselect.setLayer(self.state.layer)
     quickdrawingselect.setTool(self.mapControl)
     
   def btnDrawSelectRectangle_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingselectrectangle = QuickDrawingSelectRectangle()
     quickdrawingselectrectangle.setUI(self)
-    quickdrawingselectrectangle.setLayer(self.layer)
+    quickdrawingselectrectangle.setLayer(self.state.layer)
     quickdrawingselectrectangle.setTool(self.mapControl)
     
   def btnDrawPolyline_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingpolyline = QuickDrawingPolyline()
     quickdrawingpolyline.setUI(self)
-    quickdrawingpolyline.setLayer(self.layer)
+    quickdrawingpolyline.setLayer(self.state.layer)
     quickdrawingpolyline.setTool(self.mapControl)
     
   def btnDrawPolylineClosed_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingpolyline = QuickDrawingPolylineClosed()
     quickdrawingpolyline.setUI(self)
-    quickdrawingpolyline.setLayer(self.layer)
+    quickdrawingpolyline.setLayer(self.state.layer)
     quickdrawingpolyline.setTool(self.mapControl)
     
   def btnDrawPolygon_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingpolyline = QuickDrawingPolygon()
     quickdrawingpolyline.setUI(self)
-    quickdrawingpolyline.setLayer(self.layer)
+    quickdrawingpolyline.setLayer(self.state.layer)
     quickdrawingpolyline.setTool(self.mapControl)
     
   def btnDrawCircle_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingcircle = QuickDrawingCircle()
     quickdrawingcircle.setUI(self)
-    quickdrawingcircle.setLayer(self.layer)
+    quickdrawingcircle.setLayer(self.state.layer)
     quickdrawingcircle.setTool(self.mapControl)
     
   def btnDrawCircumference_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingcircumference = QuickDrawingCircumference()
     quickdrawingcircumference.setUI(self)
-    quickdrawingcircumference.setLayer(self.layer)
+    quickdrawingcircumference.setLayer(self.state.layer)
     quickdrawingcircumference.setTool(self.mapControl)
     
   def btnDrawEllipse_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingellipse = QuickDrawingEllipse()
     quickdrawingellipse.setUI(self)
-    quickdrawingellipse.setLayer(self.layer)
+    quickdrawingellipse.setLayer(self.state.layer)
     quickdrawingellipse.setTool(self.mapControl)
     
   def btnDrawEllipseLine_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingellipsefill = QuickDrawingEllipseLine()
     quickdrawingellipsefill.setUI(self)
-    quickdrawingellipsefill.setLayer(self.layer)
+    quickdrawingellipsefill.setLayer(self.state.layer)
     quickdrawingellipsefill.setTool(self.mapControl)
     
   def btnDrawRectangle_click(self, *args):
+    self.setUIValuesToState()
     quickdrawrectangle = QuickDrawingRectangle()
     quickdrawrectangle.setUI(self)
-    quickdrawrectangle.setLayer(self.layer)
+    quickdrawrectangle.setLayer(self.state.layer)
     quickdrawrectangle.setTool(self.mapControl)
     
   def btnDrawHand_click(self, *args):
+    self.setUIValuesToState()
     quickdrawingfreehand = QuickDrawingFreehand()
     quickdrawingfreehand.setUI(self)
-    quickdrawingfreehand.setLayer(self.layer)
+    quickdrawingfreehand.setLayer(self.state.layer)
     quickdrawingfreehand.setTool(self.mapControl)
     
   def btnDrawDelete_click(self, *args):
-    if not self.store.isEditing():
-      self.store.edit()
-    features = self.store.getFeatureSelection()
+    self.setUIValuesToState()
+    store = self.state.layer.getFeatureStore()
+    if not store.isEditing():
+      store.edit()
+    features = store.getFeatureSelection()
     for f in features:
       features.delete(f)
-    #self.store.commit()
-    self.mapContext.invalidate()
-    pass
+    self.view.getMapContext().invalidate()
     
   def btnApply_click(self, *args):
+    self.setUIValuesToState()
     values = self.graphicValues()
-    if not self.store.isEditing():
-      self.store.edit()
-    features = self.store.getFeatureSelection()
+    store = self.state.layer.getFeatureStore()
+    if not store.isEditing():
+      store.edit()
+    features = store.getFeatureSelection()
     for f in features:
       fe = f.getEditable()
       for key,value in values.iteritems():
         fe.set(key, value)
-      self.store.update(fe)
-    #self.store.commit()
-    self.mapContext.invalidate()
-    print "end apply"
+      store.update(fe)
+    self.view.getMapContext().invalidate()
+
     
   def graphicValues(self):
     values = {"COUTLINE": self.pickerColorOutline.get().getRGB(),
@@ -257,46 +461,68 @@ class QuickDrawingTool(FormPanel):
     
   def setUIValues(self, values):
     outline = Color(values["COUTLINE"], True)
-    self.pickerColorOutline.set(outline)
+    if outline!=None:
+      self.pickerColorOutline.set(outline)
     
     fill = Color(values["CFILL"], True)
-    self.pickerColorFill.set(fill)
+    if fill!=None:
+      self.pickerColorFill.set(fill)
     
     size = values["CSIZE"]
-    self.spnWidth.setValue(size)
+    if size!=None:
+      self.spnWidth.setValue(size)
     
     rotation = values["CROTATION"]
-    self.spnRotation.setValue(rotation)
+    if rotation!=None:
+      self.spnRotation.setValue(rotation)
     
-    ltext = values["LTEXT"] #.replace("'","")
-    self.txtLabelText.setText(ltext)
+    ltext = values["LTEXT"]
+    if ltext!=None:
+      self.txtLabelText.setText(ltext)
     
     lcolor = Color(values["LCOLOR"], True)
-    self.pickerFontColor.set(lcolor)
+    if lcolor!=None:
+      self.pickerFontColor.set(lcolor)
     
     lrotation = values["LROTATION"]
-    self.spnLabelRotation.setValue(lrotation)
+    if lrotation!=None:
+      self.spnLabelRotation.setValue(lrotation)
     
-    lfont = values["LFONT"] #.replace("'","")
-    print lfont
-    try:
-      self.cfonts.setSelectedItem(lfont)
-    except:
-      pass
-    
+    lfont = values["LFONT"]
+    if lfont!=None:
+
+      try:
+        self.cfonts.setSelectedItem(lfont)
+      except:
+        pass
+      
     lfonts = values["LFONTS"]
     
     lheight = values["LHEIGHT"]
-    self.spnLabelSize.setValue(lheight)
+    if lheight!=None:
+      self.spnLabelSize.setValue(lheight)
 
     lunit = values["LUNIT"]
-    self.cunits.setSelectedUnitIndex(lunit)
+    if lunit!=None:
+      self.cunits.setSelectedUnitIndex(lunit)
     
     lref = values["LREF"]
-    self.crefsystem.setSelectedItem(lunit)
+    if lref!=None:
+      self.crefsystem.setSelectedItem(lunit)
+    
+  def showTool(self, title):
+    ui = self.view.getProperty("quickdrawingtoolui")
+    if ui==None:
+      self.view.setProperty("quickdrawingtoolui", self)
+      FormPanel.showTool(self, title+' - ' + self.view.getName())
+      return
+    if ui.asJComponent().isShowing():
+      ui.asJComponent().grabFocus()
+      return
+    FormPanel.showTool(self, title+' - ' + self.view.getName())
+    return
   
 def main(*args):
   
   p = QuickDrawingTool()
   p.showTool("QuickDrawing")
-  print "values:", p.graphicValues()

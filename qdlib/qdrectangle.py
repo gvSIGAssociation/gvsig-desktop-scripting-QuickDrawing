@@ -21,7 +21,7 @@ from java.lang import Object
 class QuickDrawingRectangle(QuickDrawingBasic):
 
   def __init__(self):
-    pass
+    QuickDrawingBasic.__init__(self)
 
   def getTooltipValue(self, point, projection):
     return ""

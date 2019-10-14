@@ -15,16 +15,17 @@ from org.gvsig.app import ApplicationLocator
 from org.gvsig.andami import PluginsLocator
 from org.gvsig.scripting.app.extension import ScriptingExtension
 from org.gvsig.tools.swing.api import ToolsSwingLocator
-  
 from org.gvsig.tools import ToolsLocator
-
 from quickDrawingTool import QuickDrawingTool
 
 class QuickDrawingExtension(ScriptingExtension):
   def __init__(self):
     pass
-
-  def isVisible(self):
+    
+  def canQueryByAction(self):
+      return True
+  
+  def isVisible(self, action):
     if currentView()!=None:
       return True
     return False
@@ -32,7 +33,7 @@ class QuickDrawingExtension(ScriptingExtension):
   def isLayerValid(self, layer):
     return True
     
-  def isEnabled(self):
+  def isEnabled(self, action):
     #if not self.isLayerValid(layer):
     #  return False
     if currentView()!=None:
@@ -47,8 +48,13 @@ class QuickDrawingExtension(ScriptingExtension):
       quickdrawing = QuickDrawingTool()
       i18n = ToolsLocator.getI18nManager()
       quickdrawing.showTool(i18n.getTranslation("_Quick_drawing"))
-
+      
+def selfRegisterI18n():
+  i18nManager = ToolsLocator.getI18nManager()
+  i18nManager.addResourceFamily("text",File(gvsig.getResource(__file__,"i18n")))
+  
 def selfRegister():
+  selfRegisterI18n()
   i18n = ToolsLocator.getI18nManager()
   application = ApplicationLocator.getManager()
   actionManager = PluginsLocator.getActionInfoManager()
@@ -73,7 +79,8 @@ def selfRegister():
   # Añadimos la entrada "Report by point" en el menu herramientas
   application.addMenu(quickdrawing_action, "tools/"+i18n.getTranslation("_Quick_drawing"))
   # Añadimos el la accion como un boton en la barra de herramientas "Quickinfo".
-  application.addSelectableTool(quickdrawing_action, "QuickDrawing")
+  #application.addSelectableTool(quickdrawing_action, "QuickDrawing")
+  application.addTool(quickdrawing_action, "QuickDrawing")
 
 def main(*args):
   selfRegister()

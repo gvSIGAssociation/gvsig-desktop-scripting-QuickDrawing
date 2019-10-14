@@ -103,7 +103,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.906902622</at>
+        <at name="id">embedded.2044401764</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:6PX:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE,FILL:7PX:NONE,FILL:DEFAULT:NONE</at>
         <at name="components">
@@ -996,7 +996,7 @@
               </at>
              </object>
             </at>
-            <at name="name"></at>
+            <at name="name"/>
             <at name="fill">
              <object classname="com.jeta.forms.store.properties.effects.PaintProperty">
               <at name="name">fill</at>
@@ -1084,7 +1084,7 @@
          </at>
          <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
         </super>
-        <at name="id">embedded.1740196261</at>
+        <at name="id">embedded.1253377986</at>
         <at name="rowspecs">CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:PREF:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:3PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:4PX:NONE,CENTER:DEFAULT:NONE,CENTER:2DLU:NONE,CENTER:DEFAULT:NONE</at>
         <at name="colspecs">FILL:DEFAULT:GROW(0.2),FILL:6PX:NONE,FILL:PREF:GROW(1.0)</at>
         <at name="components">
@@ -1847,7 +1847,7 @@
                 <at name="row">16</at>
                 <at name="colspan">1</at>
                 <at name="rowspan">1</at>
-                <at name="halign">default</at>
+                <at name="halign">right</at>
                 <at name="valign">default</at>
                 <at name="insets" object="insets">0,0,0,0</at>
                </object>
@@ -1862,7 +1862,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn1</at>
-                 <at name="width">441</at>
+                 <at name="width">12</at>
                  <at name="height">12</at>
                 </object>
                </at>
@@ -1888,7 +1888,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.481811949</at>
+             <at name="id">embedded.791751764</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:4DLU:NONE,FILL:62PX:NONE,FILL:7PX:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -2170,7 +2170,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.1365145089</at>
+             <at name="id">embedded.143351356</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:7PX:NONE,FILL:62PX:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -2452,7 +2452,7 @@
               </at>
               <at name="componentclass">com.jeta.forms.gui.form.FormComponent</at>
              </super>
-             <at name="id">embedded.266747051</at>
+             <at name="id">embedded.253249633</at>
              <at name="rowspecs">CENTER:DEFAULT:NONE</at>
              <at name="colspecs">FILL:DEFAULT:GROW(1.0),FILL:7PX:NONE,FILL:62PX:NONE,FILL:4DLU:NONE,FILL:DEFAULT:NONE</at>
              <at name="components">
@@ -2821,7 +2821,7 @@
                 <at name="row">20</at>
                 <at name="colspan">1</at>
                 <at name="rowspan">1</at>
-                <at name="halign">default</at>
+                <at name="halign">right</at>
                 <at name="valign">default</at>
                 <at name="insets" object="insets">0,0,0,0</at>
                </object>
@@ -2836,7 +2836,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn2</at>
-                 <at name="width">441</at>
+                 <at name="width">12</at>
                  <at name="height">12</at>
                 </object>
                </at>
@@ -2855,7 +2855,7 @@
                 <at name="row">22</at>
                 <at name="colspan">1</at>
                 <at name="rowspan">1</at>
-                <at name="halign">default</at>
+                <at name="halign">right</at>
                 <at name="valign">default</at>
                 <at name="insets" object="insets">0,0,0,0</at>
                </object>
@@ -2870,7 +2870,7 @@
                <at name="properties">
                 <object classname="com.jeta.forms.store.support.PropertyMap">
                  <at name="name">jpn3</at>
-                 <at name="width">441</at>
+                 <at name="width">12</at>
                  <at name="height">12</at>
                 </object>
                </at>

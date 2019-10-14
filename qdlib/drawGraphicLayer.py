@@ -73,7 +73,6 @@ def main(*args):
   #load layer
   mapContextManager = MapContextLocator.getMapContextManager()
   layer = mapContextManager.createLayer('MyLayer',store)
-  print layer,type(layer)
   gvsig.currentView().addLayer(layer)  
 
   features = store.getFeatures()

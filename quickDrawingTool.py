@@ -54,7 +54,7 @@ class QuickDrawingState(Persistent):
       self.LHEIGHT=10
       self.LUNIT=1
       self.LREF=0
-      
+      self.intoc = False
   def getUIValuesFromState(self):
       values = { 
           "COUTLINE": self.COUTLINE,
@@ -219,7 +219,7 @@ class QuickDrawingTool(FormPanel):
     FormPanel.__init__(self,getResource(__file__,"quickDrawingTool2.xml"))
 
     self.view = gvsig.currentView()
-    mapContext = gvsig.currentView().getMapContext()
+    mapContext = self.view.getMapContext()
     envi = mapContext.getViewPort().getEnvelope()
     if envi is None:
       newEnvelope = createEnvelope(pointMin=createPoint2D(0,0),pointMax=createPoint2D(40,10))
@@ -250,6 +250,19 @@ class QuickDrawingTool(FormPanel):
 
     uiValuesFromState = self.state.getUIValuesFromState()
     self.setUIValues(uiValuesFromState)
+  def tglTOC_click(self, *args):
+    #show in toc
+    mapContext = self.view.getMapContext()
+    flayers = mapContext.getLayers()
+    if self.state.intoc:
+      flayers.removeLayer(self.state.layer)
+      mapContext.setGraphicsLayer(DEFAULT_DRAW_LAYER, self.state.layer)
+      self.state.intoc=False
+    else:
+      mapContext.removeGraphicsLayer(DEFAULT_DRAW_LAYER)
+      flayers.addLayer(self.state.layer)
+      self.state.intoc=True
+    
   def setUIValuesToState(self):
     uiValues = self.graphicValues()
     for key in uiValues.keys():
@@ -297,6 +310,13 @@ class QuickDrawingTool(FormPanel):
     self.lblLabelRef.setText(i18nManager.getTranslation("_Label_ref"))
     self.btnApply.setText(i18nManager.getTranslation("_Apply"))
     self.tltLabel.setText(i18nManager.getTranslation("_Label_properties"))
+    self.chbShowLayer.setText(i18nManager.getTranslation("_Show_draw_graphics_layer"))
+    self.tglTOC.setText(i18nManager.getTranslation("_Show_in_TOC"))
+  
+  def chbShowLayer_click(self,*args):
+    if self.state.layer!=None:
+      self.state.layer.setVisible(self.chbShowLayer.isSelected())
+      self.view.getMapContext().invalidate()
     
   def getGraphicLayer(self):
     return self.state.layer
@@ -333,6 +353,8 @@ class QuickDrawingTool(FormPanel):
     self.spnLabelSize.setValue(12)
     self.pickerFontColor = tsl.createColorPickerController(self.txtLabelColor, self.btnLabelColor, self.jslLabelColor)
 
+    if self.state.layer !=None:
+      self.chbShowLayer.setSelected(self.state.layer.isVisible())
     
   def btnDrawPoint_click(self, *args):
     self.setUIValuesToState()

@@ -122,6 +122,7 @@ class QuickDrawingState(Persistent):
       store = createMemoryStore()
       mapContextManager = MapContextLocator.getMapContextManager()
       self.layer = mapContextManager.createLayer(DEFAULT_DRAW_LAYER,store)
+      self.layer.setTemporary(True)
       self.setDynmicSymbologyLabeling(self.layer)
 
   def setDynmicSymbologyLabeling(self, store):

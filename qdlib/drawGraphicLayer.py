@@ -15,7 +15,7 @@ from org.gvsig.fmap.mapcontext.layers.vectorial import FLyrVect
 def createMemoryStore():
   dataManager = DALLocator.getDataManager()
   store_parameters = dataManager.createStoreParameters("Memory")
-  #store_parameters.setDynValue("isTemporary", True)
+  store_parameters.setDynValue("isTemporary", True)
   store = dataManager.openStore("Memory")
   ft = store.getDefaultFeatureType()
   eft = ft.getEditable()

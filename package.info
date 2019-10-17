@@ -1,11 +1,11 @@
 #
-#Tue Oct 15 18:58:22 CEST 2019
+#Thu Oct 17 14:41:00 CEST 2019
 owner=gvSIG Association
 code=QuickDrawing
 java-version=j1_7
 official=true
 type=Script
-version=1.0.0-3
+version=1.0.0-4
 state=testing
 operating-system=all
 dependencies=
@@ -16,7 +16,6 @@ model-version=1.0.1
 categories=
 description=Tool for add quick annotations to the graphic layer
 owner-url=
-buildNumber=3
-download-url=https\://github.com/gvSIGAssociation/gvsig-desktop-scripting-QuickDrawing/releases/download/1.0.0-3/gvSIG-desktop-2.5.0-QuickDrawing-1.0.0-3-testing-all-all-j1_7.gvspkg
+buildNumber=4
 gvSIG-version=2.5.0
 name=Quick Drawing

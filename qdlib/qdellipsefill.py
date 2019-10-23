@@ -17,7 +17,7 @@ from org.gvsig.fmap.dal.feature import FeatureStore
 
 from qdbasic import QuickDrawingBasic
 
-class QuickDrawingEllipseLine(QuickDrawingBasic):
+class QuickDrawingEllipseFill(QuickDrawingBasic):
 
   def __init__(self):
     QuickDrawingBasic.__init__(self)
@@ -26,12 +26,12 @@ class QuickDrawingEllipseLine(QuickDrawingBasic):
     return ""
 
   def setTool(self, mapControl):
-    self.behavior = EllipseBehavior(QuickDrawingEllipseLineListener(mapControl, self))
+    self.behavior = EllipseBehavior(QuickDrawingEllipseFillListener(mapControl, self))
     mapControl.addBehavior("quickdrawingellipsefill", self.behavior)
     mapControl.setTool("quickdrawingellipsefill")
 
 
-class QuickDrawingEllipseLineListener(EllipseListener):
+class QuickDrawingEllipseFillListener(EllipseListener):
 
   def __init__(self, mapControl, quickdrawing):
     EllipseListener.__init__(self)
@@ -50,7 +50,7 @@ class QuickDrawingEllipseLineListener(EllipseListener):
     return False
     
   def ellipseFinished(self, event):
-    circle = event.getPeriEllipse()
+    circle = event.getEllipse()
     if circle!=None:
       projection = self.mapControl.getProjection()
       circle.setProjection(projection)
@@ -67,6 +67,6 @@ def main(*args):
   viewPanel = viewDoc.getWindowOfView()
   mapControl = viewPanel.getMapControl()
   
-  reportbypoint = QuickDrawingEllipseLine()
+  reportbypoint = QuickDrawingEllipseFill()
   reportbypoint.setTool(mapControl)
   

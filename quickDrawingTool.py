@@ -14,7 +14,7 @@ from qdlib.qdpolygon import QuickDrawingPolygon
 from qdlib.qdcircle import QuickDrawingCircle
 from qdlib.qdcircumference import QuickDrawingCircumference
 from qdlib.qdellipse import QuickDrawingEllipse
-from qdlib.qdellipsefill import QuickDrawingEllipseLine
+from qdlib.qdellipsefill import QuickDrawingEllipseFill
 from qdlib.qdselectrectangle import QuickDrawingSelectRectangle
 from qdlib.qdrectangle import QuickDrawingRectangle
 from qdlib.qdfreehand import QuickDrawingFreehand
@@ -213,7 +213,37 @@ class QDTFocusListener(FocusListener):
       logger("focus lost", LOGGER_WARN)
       self.ui.setEnabled(False)
 
+from javax.swing.event import ChangeListener
+class QDTChangeLister(ChangeListener):
+  def __init__(self, ui):
+    self.ui = ui
+    pass
+  def stateChanged(self, e): #changeEvent
+    #e, mapControl
+    currentTool = e.getSource().getCurrentTool()
+    updateButtonsUIAction(self.ui, currentTool)
 
+def updateButtonsUIAction(ui, toolName):
+  if ui==None:
+    return
+  btns = [[ui.btnDrawPoint,"quickdrawingpoint"],
+    [ui.btnDrawSelect,"quickdrawingselectpoint"],
+    [ui.btnDrawSelectRectangle,"quickdrawingselectrectangle"],
+    [ui.btnDrawPolyline,"quickdrawingpolyline"],
+    [ui.btnDrawPolylineClosed,"quickdrawingpolylineclosed"],
+    [ui.btnDrawPolygon,"quickdrawingpolygon"],
+    [ui.btnDrawCircle,"quickdrawingcircle"],
+    [ui.btnDrawCircumference,"quickdrawingcircumference"],
+    [ui.btnDrawEllipse,"quickdrawingellipse"],
+    [ui.btnDrawEllipseFill,"quickdrawingellipsefill"],
+    [ui.btnDrawRectangle,"quickdrawingrectangle"],
+    [ui.btnDrawHand,"quickdrawingfreehand"]]
+  for btn, action in btns:
+    if action==toolName:
+      btn.setSelected(True)
+    else: 
+      btn.setSelected(False)
+    
 class QuickDrawingTool(FormPanel):
   
   def __init__(self):
@@ -227,6 +257,9 @@ class QuickDrawingTool(FormPanel):
        
       mapContext.getViewPort().setEnvelope(newEnvelope)
     self.mapControl = gvsig.currentView().getWindowOfView().getMapControl()
+    if self.mapControl!=None:
+      changeListener = QDTChangeLister(self)
+      self.mapControl.addChangeToolListener(changeListener)
     #print "add focus.."
     #self.asJComponent().addFocusListener(QDTFocusListener(self, self.view))
     # comprobar si es la misma vista
@@ -420,9 +453,9 @@ class QuickDrawingTool(FormPanel):
     quickdrawingellipse.setLayer(self.state.layer)
     quickdrawingellipse.setTool(self.mapControl)
     
-  def btnDrawEllipseLine_click(self, *args):
+  def btnDrawEllipseFill_click(self, *args):
     self.setUIValuesToState()
-    quickdrawingellipsefill = QuickDrawingEllipseLine()
+    quickdrawingellipsefill = QuickDrawingEllipseFill()
     quickdrawingellipsefill.setUI(self)
     quickdrawingellipsefill.setLayer(self.state.layer)
     quickdrawingellipsefill.setTool(self.mapControl)
@@ -546,6 +579,6 @@ class QuickDrawingTool(FormPanel):
     return
   
 def main(*args):
-  
+
   p = QuickDrawingTool()
   p.showTool("QuickDrawing")

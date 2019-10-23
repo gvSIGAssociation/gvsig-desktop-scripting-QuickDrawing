@@ -43,8 +43,6 @@ class QuickDrawingSelectListener(PointListener):
 
   def point(self, event):
     p = event.getMapPoint()
-    print "select P:", p
-    
     layer = self.quickdrawing.getLayer()
     layerTolerance = layer.getDefaultTolerance()
     tolerance = self.mapControl.getViewPort().toMapDistance(layerTolerance)
@@ -60,7 +58,7 @@ class QuickDrawingSelectListener(PointListener):
     features = store.getFeatureSet(query) #,100)
 
     if features.getSize() == 0:
-     print "cero"
+     pass
     else:
      for f in features:
       store.getFeatureSelection().select(f)

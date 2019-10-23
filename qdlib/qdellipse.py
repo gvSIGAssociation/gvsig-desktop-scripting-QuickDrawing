@@ -50,7 +50,7 @@ class QuickDrawingEllipseListener(EllipseListener):
     return False
     
   def ellipseFinished(self, event):
-    circle = event.getEllipse()
+    circle = event.getPeriEllipse()
     if circle!=None:
       projection = self.mapControl.getProjection()
       circle.setProjection(projection)

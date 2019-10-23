@@ -59,7 +59,7 @@ class QuickDrawingSelectRectangleListener(RectangleListener):
     features = store.getFeatureSet(query) #,100)
 
     if features.getSize() == 0:
-     print "cero"
+     pass
     else:
      for f in features:
       store.getFeatureSelection().select(f)

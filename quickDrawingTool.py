@@ -36,8 +36,10 @@ from org.gvsig.fmap.mapcontext.layers.vectorial import FLyrVect
 from addons.QuickDrawing import saveloadlayers
 from gvsig.geom import *
 from java.awt import Font
-DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
+from org.gvsig.symbology.fmap.mapcontext.rendering.dynamiclegend import DynamicSymbol, DynamicLabelingStrategy, DynamicVectorLegend
 
+
+DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
 
 class QuickDrawingState(Persistent):
   def __init__(self):
@@ -52,8 +54,8 @@ class QuickDrawingState(Persistent):
       self.LFONT=None
       self.LFONTS=0
       self.LHEIGHT=10
-      self.LUNIT=1
-      self.LREF=0
+      self.LUNIT=11
+      self.LREF=1
       self.intoc = False
   def getUIValuesFromState(self):
       values = { 
@@ -126,8 +128,8 @@ class QuickDrawingState(Persistent):
       self.setDynmicSymbologyLabeling(self.layer)
 
   def setDynmicSymbologyLabeling(self, store):
-      m = SymbologyLocator.getSymbologyManager()
-      vl = m.createDynamicVectorLegend()
+      mcm = MapContextLocator.getMapContextManager()
+      vl = mcm.createLegend(DynamicVectorLegend.NAME)
       expression = ExpressionEvaluatorLocator.getManager().createExpression()
       
       expression.setPhrase("COUTLINE")
@@ -147,7 +149,8 @@ class QuickDrawingState(Persistent):
   
       # Set dynamic labeling
   
-      dynamicLabeling = LabelingFactory.createDynamicLabelingStrategy()
+      sm = SymbologyLocator.getSymbologyManager()
+      dynamicLabeling  = sm.createLabelingStrategy(DynamicLabelingStrategy.NAME)
       
       expression = ExpressionEvaluatorLocator.getManager().createExpression()
       
@@ -564,7 +567,7 @@ class QuickDrawingTool(FormPanel):
     
     lref = values["LREF"]
     if lref!=None:
-      self.crefsystem.setSelectedItem(lunit)
+      self.crefsystem.setSelectedIndex(lref)
     
   def showTool(self, title):
     ui = self.view.getProperty("quickdrawingtoolui")
@@ -582,3 +585,4 @@ def main(*args):
 
   p = QuickDrawingTool()
   p.showTool("QuickDrawing")
+  print p.graphicValues()

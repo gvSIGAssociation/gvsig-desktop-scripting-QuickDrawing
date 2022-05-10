@@ -279,6 +279,7 @@ class QuickDrawingTool(FormPanel):
       self.view.setProperty("quickdrawingstate", self.state)
     drawLayer = mapContext.getGraphicsLayer(DEFAULT_DRAW_LAYER)
     if drawLayer==None:
+      self.state.layer.setProjection(mapContext.getProjection())
       mapContext.setGraphicsLayer(DEFAULT_DRAW_LAYER, self.state.layer)
       mapContext.invalidate()
     

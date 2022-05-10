@@ -22,6 +22,7 @@ def createMemoryStore():
   eft = ft.getEditable()
   eft.append("ID", 'STRING', 38)
   eft.get("ID").setIsPrimaryKey(True)
+  eft.get("ID").setDefaultFieldValue("<%=replace(UUID(),'-','')%>")
   eft.append("COUTLINE", "INTEGER", 9)
   eft.get("COUTLINE").setDefaultValue(16724787)
   

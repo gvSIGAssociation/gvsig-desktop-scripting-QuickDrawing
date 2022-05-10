@@ -5,7 +5,7 @@ import gvsig
 from addons.QuickDrawing import actions
 from org.gvsig.app.project import ProjectManager
 from org.gvsig.tools.util.BaseListenerSupport import NotificationListener
-from org.gvsig.app.project.ProjectManager import NewProjectEvent
+#from org.gvsig.app.project.ProjectManager import NewProjectEvent
 from addons.QuickDrawing import saveloadlayers
 from org.gvsig.app.project import ProjectNotification
 from org.gvsig.tools.observer import Observer, Notification
@@ -14,8 +14,9 @@ from addons.QuickDrawing import quickDrawingTool
 def main(*args):
   actions.selfRegister()
   quickDrawingTool.registerQuickDrawingStatePersistence()
-  prepareGraphicsLayer()
-  
+  #prepareGraphicsLayer()
+
+'''
 def prepareGraphicsLayer():
   
   #project = currentProject()
@@ -41,3 +42,4 @@ class ProjectObserver(Observer):
       print "save"
     elif notification == ProjectNotification.AFTER_LOAD_FROM_STATE:
       print "load"
+'''

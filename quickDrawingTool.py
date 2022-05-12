@@ -37,19 +37,19 @@ from addons.QuickDrawing import saveloadlayers
 from gvsig.geom import *
 from java.awt import Font
 from org.gvsig.symbology.fmap.mapcontext.rendering.dynamiclegend import DynamicSymbol, DynamicLabelingStrategy, DynamicVectorLegend
+from java.awt import BorderLayout
 
-
-DEFAULT_DRAW_LAYER = 'DrawGraphicsLayer'
+DEFAULT_DRAW_LAYER = 'Free drawing layer'
 
 class QuickDrawingState(Persistent):
   def __init__(self):
       self.layer = None
       self.COUTLINE= 16724787
-      self.CFILL = -65536
+      self.CFILL = 1701209855
       self.CSIZE=2
       self.CROTATION= 0
       self.LTEXT= ""
-      self.LCOLOR=-1258291200
+      self.LCOLOR=-983144705
       self.LROTATION=0
       self.LFONT=None
       self.LFONTS=0
@@ -334,7 +334,7 @@ class QuickDrawingTool(FormPanel):
   def translateUI(self):
     i18nManager = ToolsLocator.getI18nManager()
 
-    self.tltProperties.setText(i18nManager.getTranslation("_Symbol_properties"))
+    #self.tltProperties.setText(i18nManager.getTranslation("_Symbol_properties"))
     self.lblOutlineColor.setText(i18nManager.getTranslation("_Outline_color"))
     self.lblFillColor.setText(i18nManager.getTranslation("_Fill_color"))
     self.lblSize.setText(i18nManager.getTranslation("_Size"))
@@ -347,7 +347,7 @@ class QuickDrawingTool(FormPanel):
     self.lblLabelUnit.setText(i18nManager.getTranslation("_Label_unit"))
     self.lblLabelRef.setText(i18nManager.getTranslation("_Label_ref"))
     self.btnApply.setText(i18nManager.getTranslation("_Apply"))
-    self.tltLabel.setText(i18nManager.getTranslation("_Label_properties"))
+    #self.tltLabel.setText(i18nManager.getTranslation("_Label_properties"))
     self.chbShowLayer.setText(i18nManager.getTranslation("_Show_draw_graphics_layer"))
     self.tglTOC.setText(i18nManager.getTranslation("_Show_in_TOC"))
   
@@ -375,18 +375,19 @@ class QuickDrawingTool(FormPanel):
       self.cfonts.setSelectedItem("Arial")
     except:
       pass
-    self.jpn1.add(self.cfonts)
+    self.jpn1.setLayout(BorderLayout(1,1))
+    self.jpn1.add(self.cfonts,BorderLayout.CENTER)
     self.jpn1.updateUI()
 
     self.cunits = JComboBoxUnits()
-    self.jpn2.add(self.cunits)
+    self.jpn2.setLayout(BorderLayout(1,1))
+    self.jpn2.add(self.cunits,BorderLayout.CENTER)
     self.jpn2.updateUI()
 
-
     self.crefsystem = JComboBoxUnitsReferenceSystem()
-    self.jpn3.add(self.crefsystem)
+    self.jpn3.setLayout(BorderLayout(1,1))
+    self.jpn3.add(self.crefsystem,BorderLayout.CENTER)
     self.jpn3.updateUI()
-    
     
     self.spnLabelSize.setValue(12)
     self.pickerFontColor = tsl.createColorPickerController(self.txtLabelColor, self.btnLabelColor, self.jslLabelColor)
@@ -517,6 +518,7 @@ class QuickDrawingTool(FormPanel):
               "LUNIT": self.cunits.getSelectedUnitIndex(),
               "LREF": self.crefsystem.getSelectedIndex()
               }
+    print self.pickerColorFill.get().getRGB()
     return values
     
   def setUIValues(self, values):

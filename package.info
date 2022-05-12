@@ -1,21 +1,21 @@
 #
-#Tue May 10 11:24:24 CEST 2022
+#Thu May 12 19:13:18 CEST 2022
 owner=gvSIG Association
 code=QuickDrawing
 java-version=j1_7
-operating-system=all
-description=Tool for add quick annotations to the graphic layer
 official=true
 type=Script
-web-url=
-version=1.0.0-7
-buildNumber=7
-owner-url=
+version=1.0.0-8
+state=testing
+operating-system=all
 dependencies=
 sources-url=
-name=Quick Drawing
-gvSIG-version=2.6.0
-state=testing
-categories=
-model-version=1.0.1
+web-url=
 architecture=all
+model-version=1.0.1
+categories=
+description=Tool for add quick annotations to the graphic layer
+owner-url=
+buildNumber=8
+gvSIG-version=2.6.0
+name=Quick Drawing

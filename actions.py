@@ -71,16 +71,16 @@ def selfRegister():
     "settool-quickdrawing", # Action command
     "tools-quickdrawing",   # Icon name
     None,                # Accelerator
-    1009000000,          # Position
+    657000000,          # Position
     i18n.getTranslation("_Quick_drawing")    # Tooltip
   )
   quickdrawing_action = actionManager.registerAction(quickdrawing_action)
 
   # Añadimos la entrada "Report by point" en el menu herramientas
-  application.addMenu(quickdrawing_action, "tools/"+i18n.getTranslation("_Quick_drawing"))
+  application.addMenu(quickdrawing_action, "View/"+i18n.getTranslation("_Quick_drawing"))
   # Añadimos el la accion como un boton en la barra de herramientas "Quickinfo".
   #application.addSelectableTool(quickdrawing_action, "QuickDrawing")
-  application.addTool(quickdrawing_action, "QuickDrawing")
+  application.addTool(quickdrawing_action, "view_navigation")
 
 def main(*args):
   selfRegister()

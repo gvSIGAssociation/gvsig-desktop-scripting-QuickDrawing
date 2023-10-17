@@ -17,6 +17,7 @@ from qdlib.qdellipse import QuickDrawingEllipse
 from qdlib.qdellipsefill import QuickDrawingEllipseFill
 from qdlib.qdselectrectangle import QuickDrawingSelectRectangle
 from qdlib.qdrectangle import QuickDrawingRectangle
+from qdlib.qdrectanglefill import QuickDrawingRectangleFill
 from qdlib.qdfreehand import QuickDrawingFreehand
 
 from java.awt import Color
@@ -240,6 +241,7 @@ def updateButtonsUIAction(ui, toolName):
     [ui.btnDrawEllipse,"quickdrawingellipse"],
     [ui.btnDrawEllipseFill,"quickdrawingellipsefill"],
     [ui.btnDrawRectangle,"quickdrawingrectangle"],
+    [ui.btnDrawRectangleFill,"quickdrawingrectanglefill"],
     [ui.btnDrawHand,"quickdrawingfreehand"]]
   for btn, action in btns:
     if action==toolName:
@@ -472,6 +474,13 @@ class QuickDrawingTool(FormPanel):
     quickdrawrectangle.setLayer(self.state.layer)
     quickdrawrectangle.setTool(self.mapControl)
     
+  def btnDrawRectangleFill_click(self, *args):
+    self.setUIValuesToState()
+    quickdrawrectanglefill = QuickDrawingRectangleFill()
+    quickdrawrectanglefill.setUI(self)
+    quickdrawrectanglefill.setLayer(self.state.layer)
+    quickdrawrectanglefill.setTool(self.mapControl)
+    
   def btnDrawHand_click(self, *args):
     self.setUIValuesToState()
     quickdrawingfreehand = QuickDrawingFreehand()
@@ -518,7 +527,7 @@ class QuickDrawingTool(FormPanel):
               "LUNIT": self.cunits.getSelectedUnitIndex(),
               "LREF": self.crefsystem.getSelectedIndex()
               }
-    print self.pickerColorFill.get().getRGB()
+    #print self.pickerColorFill.get().getRGB()
     return values
     
   def setUIValues(self, values):

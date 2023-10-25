@@ -58,10 +58,19 @@ def selfRegister():
   i18n = ToolsLocator.getI18nManager()
   application = ApplicationLocator.getManager()
   actionManager = PluginsLocator.getActionInfoManager()
-  iconTheme = ToolsSwingLocator.getIconThemeManager().getCurrent()
+  iconTheme = ToolsSwingLocator.getIconThemeManager().getDefault()
 
-  quickinfo_icon = File(gvsig.getResource(__file__,"images","quickdrawing.png")).toURI().toURL()
+  quickinfo_icon = File(gvsig.getResource(__file__,"images","tools-quickdrawing.png")).toURI().toURL()
   iconTheme.registerDefault("scripting.quickdrawing", "action", "tools-quickdrawing", None, quickinfo_icon)
+
+  quickinfo_icon = File(gvsig.getResource(__file__,"images","quickdrawing-insert-polyline-closed.png")).toURI().toURL()
+  iconTheme.registerDefault("scripting.quickdrawing", "quickdrawing", "quickdrawing-insert-polyline-closed", None, quickinfo_icon)
+
+  quickinfo_icon = File(gvsig.getResource(__file__,"images","quickdrawing-insert-freehand-line.png")).toURI().toURL()
+  iconTheme.registerDefault("scripting.quickdrawing", "quickdrawing", "quickdrawing-insert-freehand-line", None, quickinfo_icon)
+
+  quickinfo_icon = File(gvsig.getResource(__file__,"images","quickdrawing-insert-text.png")).toURI().toURL()
+  iconTheme.registerDefault("scripting.quickdrawing", "quickdrawing", "quickdrawing-insert-text", None, quickinfo_icon)
 
   quickdrawing_extension = QuickDrawingExtension()
   quickdrawing_action = actionManager.createAction(

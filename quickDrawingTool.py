@@ -254,6 +254,25 @@ class QuickDrawingTool(FormPanel):
   def __init__(self):
     FormPanel.__init__(self,getResource(__file__,"quickDrawingTool2.xml"))
 
+    iconTheme = ToolsSwingLocator.getIconThemeManager().getCurrent()
+    self.btnDrawPoint.setIcon(iconTheme.get("insert-point"))
+
+    self.btnDrawSelect.setIcon(iconTheme.get("selection-select-by-rectangle"))
+    self.btnDrawSelectRectangle.setIcon(iconTheme.get("selection-simple-select"))
+    self.btnDrawPolyline.setIcon(iconTheme.get("insert-polyline"))
+    self.btnDrawPolygon.setIcon(iconTheme.get("insert-polygon"))
+    self.btnDrawCircle.setIcon(iconTheme.get("insert-circle-cr"))
+    self.btnDrawCircumference.setIcon(iconTheme.get("insert-circumference-cr"))
+    self.btnDrawEllipse.setIcon(iconTheme.get("insert-ellipse"))
+    self.btnDrawEllipseFill.setIcon(iconTheme.get("insert-filled-ellipse"))
+    self.btnDrawRectangle.setIcon(iconTheme.get("insert-rectangle"))
+    self.btnDrawRectangleFill.setIcon(iconTheme.get("insert-filled-rectangle"))
+    self.btnDrawDelete.setIcon(iconTheme.get("common-remove"))
+
+    self.btnDrawPolylineClosed.setIcon(iconTheme.get("quickdrawing-insert-polyline-closed")) # mine
+    self.btnDrawHand.setIcon(iconTheme.get("quickdrawing-insert-freehand-line")) # mine
+    #self.btnDrawInsertText.setIcon(iconTheme.get("quickdrawing-insert-text")) # mine
+
     self.view = gvsig.currentView()
     mapContext = self.view.getMapContext()
     envi = mapContext.getViewPort().getEnvelope()

@@ -257,8 +257,8 @@ class QuickDrawingTool(FormPanel):
     iconTheme = ToolsSwingLocator.getIconThemeManager().getCurrent()
     self.btnDrawPoint.setIcon(iconTheme.get("insert-point"))
 
-    self.btnDrawSelect.setIcon(iconTheme.get("selection-select-by-rectangle"))
-    self.btnDrawSelectRectangle.setIcon(iconTheme.get("selection-simple-select"))
+    self.btnDrawSelect.setIcon(iconTheme.get("selection-simple-select"))
+    self.btnDrawSelectRectangle.setIcon(iconTheme.get("selection-select-by-rectangle"))
     self.btnDrawPolyline.setIcon(iconTheme.get("insert-polyline"))
     self.btnDrawPolygon.setIcon(iconTheme.get("insert-polygon"))
     self.btnDrawCircle.setIcon(iconTheme.get("insert-circle-cr"))

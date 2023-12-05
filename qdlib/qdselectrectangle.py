@@ -73,7 +73,7 @@ class QuickDrawingSelectRectangleListener(RectangleListener):
     
   def getImageCursor(self):
     """Evento de PointListener"""
-    return IconThemeHelper.getImage("cursor-select-by-point")
+    return IconThemeHelper.getImage("cursor-select-by-rectangle")
 
   def cancelDrawing(self):
     """Evento de PointListener"""

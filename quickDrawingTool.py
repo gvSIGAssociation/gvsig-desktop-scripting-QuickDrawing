@@ -45,7 +45,7 @@ DEFAULT_DRAW_LAYER = 'Free drawing layer'
 class QuickDrawingState(Persistent):
   def __init__(self):
       self.layer = None
-      self.COUTLINE= 16724787
+      self.COUTLINE= -2130758861 #Color(0xFF, 0x33, 0x33, 0x7F)
       self.CFILL = 1701209855
       self.CSIZE=2
       self.CROTATION= 0
